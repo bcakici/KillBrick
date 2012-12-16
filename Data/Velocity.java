@@ -1,16 +1,32 @@
 package Data;
 
 import Logic.GameObject;
-// it keeps velocity of dynamic objects. 
+// it keeps velocity of dynamic objects.
 public class Velocity {
+
 	private double velocityX;
 	private double velocityY;
+
 	// get the velocity of x cordinate.
-	public double getVelocityX() {}
+	public double getVelocityX()
+	{
+         return velocityX;
+	}
+
 	// set the velocity of x cordinate.
-	public void setVelocityX(double aVelocityX) {}
+	public void setVelocityX(double aVelocityX)
+	{
+        this.velocityX = velocityX;
+	}
+
 	// get the velocity of y cordinate.
-	public double getVelocityY() {}
+	public double getVelocityY()
+	{
+        return velocityY;
+	}
 	// set the velocity of y cordinate.
-	public void setVelocityY(double aVelocityY) {}
+	public void setVelocityY(double aVelocityY)
+	{
+        this.velocityY = velocityY;
+	}
 }

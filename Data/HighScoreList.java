@@ -2,13 +2,26 @@ package Data;
 
 //has two arrays which keep names and high scores respectively.
 public class HighScoreList {
+
 	private ArrayList<Integer> highScores;
 	private ArrayList<String> names;
+
 	//takes the users name and high score and writes to arrays.
-	public void addScore(int score, string name) {}
+	public void addScore(int score, string name)
+	{
+
+	}
+
 	// get the highscores from array.
-	public ArrayList<Integer> getHighScores() {}
+	public ArrayList<Integer> getHighScores()
+	{
+
+	}
+
 	// get the highscores name from array.
-	public ArrayList<String> getHighScoreNames() {}
+	public ArrayList<String> getHighScoreNames()
+	{
+
+	}
 
 }
