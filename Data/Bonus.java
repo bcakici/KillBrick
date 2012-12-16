@@ -1,6 +1,7 @@
 package Data;
 
-import Logic.GameObject;
+import Logic.*;
+
 //at the beginning bonuses are invisible and not falling because they are hidden in bricks
 public abstract class Bonus extends GameObject {
 
@@ -18,9 +19,6 @@ public abstract class Bonus extends GameObject {
 	}
 
 	// every bonuses implement this method differently, each bonus call it related methods.
-	abstract public void gainBonus(gameEngine e, Pedal p, BallManager b, HighScoreManager h)
-	{
-
-	}
+	abstract public void gainBonus(GameEngine e, Pedal p, BallManager b, HighScoreManager h);
 
 }

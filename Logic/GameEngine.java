@@ -62,7 +62,6 @@ public class GameEngine {
 			for( Brick brick: bricks){
 				collision = ball.getCollision(brick);
 				if( collision != null){
-					ball.reflectFrom(collision);
 					brick.decreaseHealth();
 					if( brick.isExploded()){
 						Bonus b = brick.getBonus();
@@ -75,12 +74,26 @@ public class GameEngine {
 			}
 			for( Wall wall: walls){
 				collision = ball.getCollision(wall);
+			}
+			collision = ball.getCollision( pedal);
+			if( isMultiplayer){
+				collision = ball.getCollision( pedal2);
+			}
+			if( collision != null){
+				ball.reflectFrom(collision);
+			}
+		}
+		for( Bonus bonus: bonuses){
+			Point collision = bonus.getCollision( pedal);
+			if( collision != null){
+				bonus.gainBonus(this, pedal, ballManager, highScoreManager);
+			}
+			else if( isMultiplayer){
+				collision = bonus.getCollision( pedal2);
 				if( collision != null){
-					ball.reflectFrom(collision);
-					break;
+					bonus.gainBonus(this, pedal2, ballManager, highScoreManager);
 				}
 			}
-			
 		}
 	}
 	// updates the changes to the screen.
