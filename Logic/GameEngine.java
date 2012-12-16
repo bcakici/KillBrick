@@ -1,3 +1,4 @@
+package Logic;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class GameEngine {
 	private KeyListener keyListener;
 	private boolean isMultiplayer;
 	//Creates pedals, and most of the properties
-	public void GameEngine(boolean isMultiplayer) {
+	public GameEngine(boolean isMultiplayer) {
 		bonuses = new ArrayList<Bonus>();
 		bricks = new ArrayList<Brick>();
 		walls = new ArrayList<Wall>();
@@ -48,7 +49,17 @@ public class GameEngine {
 	public void stopGame() {}
 	// Elapse method calls redrawObject method and calculateCollisions method.
 	public void elapse( int time) {}
-	public void createRandomBonus() {}
+	public Bonus getRandomBonus() {
+		Bonus bonus;
+		switch((int)(Math.random() * 4)){
+			case 0: bonus = new BallBonus(); break;
+			case 1: bonus = new LifeBonus(); break;
+			case 2: bonus = new PedalLengthBonus(); break;
+			case 3: bonus = new ScoreBonus(); break;
+			default: bonus = new SpeedBonus(); break;
+		}
+		return bonus;
+	}
 	//it takes the id of the pedal and direction of the pedal 
 	//as a parameter and enables to move the pedal.
 	public void movePedal(int pedalsNumber, boolean direction) {}
@@ -56,6 +67,24 @@ public class GameEngine {
 	 * There are four collision types that should be calculated such as between Ball-Brick,
 	 * Ball - Pedal, Ball - Wall, Bonus - Pedal.*/
 	private void calculateCollisions() {
+		calculateBallCollisions();
+		calculateBonusCollisions();
+	}
+	private void calculateBonusCollisions(){
+		for( Bonus bonus: bonuses){
+			Point collision = bonus.getCollision( pedal);
+			if( collision != null){
+				bonus.gainBonus(this, pedal, ballManager, highScoreManager);
+			}
+			else if( isMultiplayer){
+				collision = bonus.getCollision( pedal2);
+				if( collision != null){
+					bonus.gainBonus(this, pedal2, ballManager, highScoreManager);
+				}
+			}
+		}
+	}
+	private void calculateBallCollisions(){
 		ArrayList<Ball> balls = ballManager.getBalls();
 		for( Ball ball: balls){
 			Point collision;
@@ -81,18 +110,6 @@ public class GameEngine {
 			}
 			if( collision != null){
 				ball.reflectFrom(collision);
-			}
-		}
-		for( Bonus bonus: bonuses){
-			Point collision = bonus.getCollision( pedal);
-			if( collision != null){
-				bonus.gainBonus(this, pedal, ballManager, highScoreManager);
-			}
-			else if( isMultiplayer){
-				collision = bonus.getCollision( pedal2);
-				if( collision != null){
-					bonus.gainBonus(this, pedal2, ballManager, highScoreManager);
-				}
 			}
 		}
 	}
