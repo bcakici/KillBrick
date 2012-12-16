@@ -1,10 +1,6 @@
 package Data;
 //this class corresponds to ball in game
 public class Ball extends GameObject {
-
-	public BallManager;
-
-
 	// calculate the reflect ball form
 	public void reflectFrom(Point Collision)
 	{

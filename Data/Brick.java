@@ -3,15 +3,16 @@ package Data;
 public abstract class Brick extends GameObject {
 
 	private int health;
-
+	private Bonus bonus;
 	//checks if brick is broken or not.
-	public boolean isExploded()
-	{
-         return 0;
+	public boolean isExploded() {
+		return( health == 0);
     }
-	// this brick has a bonus.
-	public boolean hasBonusAndExploded()
-	{
-
+	public void decreaseHealth(){
+		health--;
+	}
+	// this brick holds bonus sometimes.
+	public Bonus getBonus() {
+		return bonus;
 	}
 }
