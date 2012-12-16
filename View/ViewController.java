@@ -1,13 +1,16 @@
 
-import View.*;
+package View;
+import java.awt.*;
+
 /* holds and controls GameView, HighScoreView, HelpView, AboutUsView and MainMenu.
 * this class is designed like singleton pattern because there must be only one instance
 * of it */
 public class ViewController {
+    
 	private boolean mute;
 	private String name;
 	private GameView gameView;
-	private HighScoreView HighScoreView;
+	private HighScoreView highScoreView;
 	private HelpView helpView;
 	private AboutUsView aboutUsView;
 	private MainMenu mainMenu;
@@ -15,11 +18,33 @@ public class ViewController {
 	// creates view objects
 	private ViewController(){}
 	// gets the instance of viewcontroller if there is no instance create new viewcontroller
-	public static getInstance(){}
+	public static ViewController getInstance(){
+            if(viewController == null) {
+                viewController = new ViewController();
+            }
+            return viewController;    
+        }
+        
 	// displays main menu
-	public void showMainMenu() {}
+	public void showMainMenu() {
+            
+            
+        }
 	// it hide all views that are visible  
-	public void hideAllPanels() {}
+	public void hideAllPanels() {
+            if(mainMenu.isVisible() == true) {
+                mainMenu.setVisible(false);
+            }
+            if(aboutUsView.isVisible() == true) {
+                aboutUsView.setVisible(false);
+            }
+            if(helpView.isVisible() == true) {
+                helpView.setVisible(false);
+            }
+            if(highScoreView.isVisible() == true) {
+                highScoreView.setVisible(false);
+            } 
+        }
 	// it shows high score list
 	public void showHighScoreView() {}
 	//gives information about how to play game.

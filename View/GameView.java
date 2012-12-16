@@ -1,5 +1,6 @@
 //-	keeps the GameObject
-
+package View;
+import java.awt.*;
 
 public class GameView {
 	//keeps the option of single or multi player game.

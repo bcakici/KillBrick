@@ -1,6 +1,7 @@
 package View;
-
+import java.awt.*;
 import Logic.HighScoreManager;
+import javax.swing.JPanel;
 
 // this view class is a panel that shows top highscores
 // submit of last highscore is happening through this class

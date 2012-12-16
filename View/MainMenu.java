@@ -1,4 +1,7 @@
 package View;
+import java.awt.*;
+import javax.swing.JPanel;
+
 /* this class is a panel that has a menu to reach other views.
 *  this class will have buttons and when they are clicked view controller
 *  will display clicked views */ 
