@@ -1,5 +1,4 @@
-
-import killbrick.*;
+import View.*;
 
 /*
  * To change this template, choose Tools | Templates
