@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package Data;
 //is an abstract class which keeps the brick types.
 public abstract class Brick extends GameObject {
@@ -16,3 +17,61 @@ public abstract class Brick extends GameObject {
 		return bonus;
 	}
 }
+=======
+package Data;
+//is an abstract class which keeps the brick types.
+public abstract class Brick extends GameObject {
+
+    //declare x & y coordinates 
+    int x, y;
+    
+    Bonus bonus;
+
+    
+    //declare boolean to determine if brick has been hit
+    boolean exploded;
+
+    //constructor takes in x and y coordinates
+    public Brick(int x, int y, Bonus b) {
+        this.bonus = b;
+        this.x = x;
+        this.y = y;
+        this.exploded = false;
+    }
+
+    //if hit returns true otherwise returns false
+    public boolean isExploded() {
+        return this.exploded;
+    }
+
+    //set if the brick is hit or not
+    public void setExploded(boolean exploded) {
+        this.exploded = exploded;
+    }
+
+    //gets x coordinate of brick
+    public int getX() {
+        return x;
+    }
+
+    //gets y coordinate of brick
+    public int getY() {
+        return y;
+    }
+    
+    public Bonus getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(Bonus bonus) {
+        this.bonus = bonus;
+    }
+
+    public boolean hasBonusAndExploded() {
+        if(isExploded() && this.bonus != null){
+            return true;
+        }
+        return false;
+    }
+}
+>>>>>>> Data Package-Version 0.0.1
