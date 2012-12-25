@@ -35,11 +35,11 @@ public class Point {
 =======
 package Data;
 
-// it keeps cordinate of point x,y in any position. 
+// it keeps cordinate of point x,y in any position.
 public class Point {
 	private int x;
 	private int y;
-	// it gets x cordinate 
+	// it gets x cordinate
 	public int getX() {
             return this.x;
         }
@@ -56,4 +56,4 @@ public class Point {
             this.y = y;
         }
 }
->>>>>>> Data Package-Version 0.0.1
+

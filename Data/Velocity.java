@@ -34,7 +34,7 @@ public class Velocity {
 =======
 package Data;
 
-// it keeps velocity of dynamic objects. 
+// it keeps velocity of dynamic objects.
 public class Velocity {
 	private double velocityX;
 	private double velocityY;
@@ -55,4 +55,4 @@ public class Velocity {
             this.velocityY = aVelocityY;
         }
 }
->>>>>>> Data Package-Version 0.0.1
+

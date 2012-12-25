@@ -1,5 +1,3 @@
-
-package Data;
 //increment the life by one that the user already has.
 public class LifeBonus extends Bonus {
 
