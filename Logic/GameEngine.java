@@ -37,7 +37,7 @@ public class GameEngine {
 		highScoreManager = new HighScoreManager();
 		soundManager = new SoundManager();
 		ballManager = new BallManager();
-		gameLooper = new GameLooper();
+		gameLooper = new GameLooper( this);
 		keyboardListener = new KeyboardListener( this);
 		gameView = gv;
 		
@@ -128,11 +128,11 @@ public class GameEngine {
 	// Creates levels with intializing brick objects.
 	public void createLevel(int no) {
 		NormalBrick b = new NormalBrick();
-		gameView.add(b);
+		gameView.add(new JLabel(b));
 		StrongBrick s = new StrongBrick();
-		gameView.add(s);
+		gameView.add(new JLabel(s));
 		pedal = new Pedal();
-		gameView.add(pedal);
+		gameView.add(new JLabel(pedal));
 	}
 	public void increasePlayersHealth()
 	{

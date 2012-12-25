@@ -16,6 +16,7 @@ public class KeyboardListener implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int pressed = e.getKeyLocation();
+		gameEngine.createLevel(1);
 		if( pressed == KeyEvent.KEY_LOCATION_LEFT){
 			gameEngine.getPedal1().moveLeft();
 		}
