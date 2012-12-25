@@ -45,9 +45,12 @@ public class ViewController extends javax.swing.JFrame{
         
         helpView = new HelpView();
         this.add(helpView);
-        
+
         aboutUsView = new AboutUsView();
         this.add(aboutUsView);
+
+        mainMenu = new MainMenu();
+        this.add(mainMenu);
         
         //We need to close up all panels except main menu
         hideAllPanels();
