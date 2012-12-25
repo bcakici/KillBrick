@@ -56,7 +56,9 @@ public class GameEngine {
 	// it is stop the game.
 	public void stopGame() {}
 	// Elapse method calls redrawObject method and calculateCollisions method.
-	public void elapse( int time) {}
+	public void elapse( double time) {
+		
+	}
 	public Bonus getRandomBonus() {
 		Bonus bonus;
 		switch((int)(Math.random() * 4)){
