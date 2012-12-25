@@ -17,7 +17,7 @@ public class MainMenu extends javax.swing.JPanel {
     }
     
     public void startGame(boolean isMultiplayer) {
-            
+        ViewController.getInstance().startSingleplayerGame(false);
     }
     
     /**
@@ -42,6 +42,11 @@ public class MainMenu extends javax.swing.JPanel {
         label1.setText("KILL BRICK");
 
         jButton1.setText("START SINGLEPLAYER");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jButton2.setText("START MULTIPLAYER");
 
@@ -105,6 +110,10 @@ public class MainMenu extends javax.swing.JPanel {
             jButton4.setText("SOUND OFF");
         }
     }                                     
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {
+        startGame(false);
+    }
 
     // Variables declaration - do not modify
     private javax.swing.JButton jButton1;
