@@ -1,3 +1,5 @@
+package Data;
+
 // wall is the object around the screen.
 // it keeps wall height and width.
 public class Wall extends GameObject {

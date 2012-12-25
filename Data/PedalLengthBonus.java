@@ -1,3 +1,5 @@
+package Data;
+
 //can able to length or shorten the pedal.
 public class PedalLengthBonus extends Bonus {
 

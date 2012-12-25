@@ -1,3 +1,4 @@
+package Data;
 //gives extra points to user when the user catch that bonus.
 public class ScoreBonus extends Bonus {
 	private int score;

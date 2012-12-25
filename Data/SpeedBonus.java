@@ -1,3 +1,5 @@
+package Data;
+
 //accelerate or deaccelerate the ball speed.
 public class SpeedBonus extends Bonus {
 	private double speedMultiplier;

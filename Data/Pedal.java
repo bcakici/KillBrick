@@ -1,3 +1,5 @@
+package Data;
+
 //draws the pedal and keeps its length.
 public class Pedal extends GameObject {
 

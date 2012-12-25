@@ -1,3 +1,4 @@
+package Data;
 //is an abstract class which keeps the brick types.
 public abstract class Brick extends GameObject {
 
