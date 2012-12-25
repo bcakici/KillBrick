@@ -39,7 +39,7 @@ public class GameEngine {
 		ballManager = new BallManager();
 		gameLooper = new GameLooper();
 		keyListener = new KeyListener();
-		gameView = new GameView();
+		gameView = gv;
 		
 		this.isMultiplayer = isMultiplayer;
 	}
@@ -137,7 +137,7 @@ public class GameEngine {
 	{
         if(playersHealth == 0){
             stopGame();
-        }else{
+        } else{
             playersHealth--;
         }
 	}

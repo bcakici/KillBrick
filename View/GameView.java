@@ -1,7 +1,11 @@
 //-	keeps the GameObject
 package View;
 import java.awt.*;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import Data.NormalBrick;
 
 public class GameView extends JPanel{
 	//keeps the option of single or multi player game.
@@ -10,10 +14,11 @@ public class GameView extends JPanel{
 	public void createGameEngine(boolean isMultiplayer, boolean sound) {
             
             if (isMultiplayer == true) {
-                gameEngine = new Logic.GameEngine(this,true);
+                gameEngine = new Logic.GameEngine(this, true);
             }
             else
                 gameEngine = new Logic.GameEngine(this, false);
+            startGame();
         }
         
 	// exits game.
