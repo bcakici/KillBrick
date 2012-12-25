@@ -1,45 +1,3 @@
-<<<<<<< HEAD
-package Data;
-
-import java.util.ArrayList;
-
-//has two arrays which keep names and high scores respectively.
-public class HighScoreList {
-
-	private ArrayList<Integer> highScores;
-	private ArrayList<String> names;
-
-	//takes the users name and high score and writes to arrays.
-	public void addScore(int score, String name) {
-		if (score > highScores.get(9)) {
-			for (int i = 0; i < 10; i++) {
-				if (highScores.get(i) < score) {
-					highScores.add(i, score);
-					names.add(i, name);
-					highScores.remove(10);
-					names.remove(10);
-					break;
-				}
-			}
-		}
-	}
-
-	// get the highscores from array.
-	public ArrayList<Integer> getHighScores()
-	{
-        return highScores;
-	}
-
-	// get the highscores name from array.
-	public ArrayList<String> getHighScoreNames()
-	{
-        return names;
-	}
-
-}
-=======
-package Data;
-
 //has two arrays which keep names and high scores respectively.
 import java.io.*;
 import java.util.ArrayList;
@@ -53,7 +11,7 @@ public class HighScoreList {
     public void addScore(int score, String name) {
         boolean isThere = false;
         try {
-            // Open the file that is the first 
+            // Open the file that is the first
             // command line parameter
             FileInputStream fstream = new FileInputStream("High Scores.txt");
             // Get the object of DataInputStream
@@ -103,7 +61,7 @@ public class HighScoreList {
         }
         boolean isThere = false;
         try {
-            // Open the file that is the first 
+            // Open the file that is the first
             // command line parameter
             FileInputStream fstream = new FileInputStream("High Scores.txt");
             // Get the object of DataInputStream
@@ -133,7 +91,7 @@ public class HighScoreList {
         }
         boolean isThere = false;
         try {
-            // Open the file that is the first 
+            // Open the file that is the first
             // command line parameter
             FileInputStream fstream = new FileInputStream("High Scores.txt");
             // Get the object of DataInputStream
@@ -155,6 +113,6 @@ public class HighScoreList {
             return null;
         return this.names;
     }
-   
+
 }
->>>>>>> Data Package-Version 0.0.1
+
