@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 import Logic.*;
 import Data.*;
-/* Game engine holds other logic classes maintain game objects, 
-it detects collisions types and redraw objects. */ 
+/* Game engine holds other logic classes maintain game objects,
+it detects collisions types and redraw objects. */
 
 public class GameEngine {
+    private int playersHealth = 3;
 	private ArrayList<Bonus> bonuses;
 	private ArrayList<Brick> bricks;
 	private ArrayList<Wall> walls;
@@ -33,10 +34,10 @@ public class GameEngine {
 		ballManager = new BallManager();
 		gameLooper = new GameLooper();
 		keyListener = new KeyListener();
-		
+
 		this.isMultiplayer = isMultiplayer;
 	}
-	// in multiplayer game if two padals is collide. 
+	// in multiplayer game if two padals is collide.
 	public boolean isPedalsCollide() {
 		if( isMultiplayer){
 			return( pedal.getCollision(pedal2) != null);
@@ -60,7 +61,7 @@ public class GameEngine {
 		}
 		return bonus;
 	}
-	//it takes the id of the pedal and direction of the pedal 
+	//it takes the id of the pedal and direction of the pedal
 	//as a parameter and enables to move the pedal.
 	public void movePedal(int pedalsNumber, boolean direction) {}
 	/*calculates the type of collision and according to result calls other methods if necessary.
@@ -115,7 +116,18 @@ public class GameEngine {
 	}
 	// updates the changes to the screen.
 	private void redrawObjects(int elapsedTime) {}
-	// Creates levels with intializing brick objects. 
+	// Creates levels with intializing brick objects.
 	public void createLevel(int no) {}
-	public void increaseHealth(){}
+	public void increasePlayersHealth()
+	{
+        playersHealth++;
+	}
+	public void decreasePlayersHealth()
+	{
+        if(playersHealth == 0){
+            stopGame();
+        }else{
+            playersHealth--;
+        }
+	}
 }
