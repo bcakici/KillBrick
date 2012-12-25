@@ -117,4 +117,5 @@ public class GameEngine {
 	private void redrawObjects(int elapsedTime) {}
 	// Creates levels with intializing brick objects. 
 	public void createLevel(int no) {}
+	public void increaseHealth(){}
 }

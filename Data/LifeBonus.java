@@ -6,7 +6,7 @@ public class LifeBonus extends Bonus {
 	// every bonuses implement this method differently, each bonus call it related methods.
 	public void gainBonus(gameEngine e, Pedal p, BallManager b, HighScoreManager h)
 	{
-
+        e.increaseHealth();
 	}
 
 	/* this method redraws game object this method is implemented by every gameobject itself
