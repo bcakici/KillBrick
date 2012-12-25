@@ -21,20 +21,22 @@ public class ViewController extends javax.swing.JFrame{
     private AboutUsView aboutUsView;
     private MainMenu mainMenu;
     private static ViewController viewController;
-
     private JOptionPane showEnterNamePanel;
     
     /**
      * Creates new form ViewController
      */
+    
+	// creates view objects
+	// gets the instance of viewcontroller if there is no instance create new viewcontroller
     public static ViewController getInstance(){
         if(viewController == null) {
             viewController = new ViewController();
         }
         return viewController;    
     }
-
-    public ViewController() {
+    
+    private ViewController() {
         initComponents();
         this.setTitle("Kill Brick");
         gameView = new GameView();
@@ -45,16 +47,17 @@ public class ViewController extends javax.swing.JFrame{
         
         helpView = new HelpView();
         this.add(helpView);
-
+        
         aboutUsView = new AboutUsView();
         this.add(aboutUsView);
-
+        
         mainMenu = new MainMenu();
         this.add(mainMenu);
         
         //We need to close up all panels except main menu
         hideAllPanels();
         mainMenu.setVisible(true);  
+        startSingleplayerGame(true);
     }
     
     public void hideAllPanels() {

@@ -3,7 +3,12 @@ package Data;
 //draws the pedal and keeps its length.
 public class Pedal extends GameObject {
 
-    //declares variable for the distance to travel each time in pixels
+    public Pedal() {
+		super("");
+		// TODO Auto-generated constructor stub
+	}
+
+	//declares variable for the distance to travel each time in pixels
     private int move = 5;
 
     //declares variables for x and y coordinates
@@ -12,30 +17,8 @@ public class Pedal extends GameObject {
     private int min = 0, max = 1000, width = 100, height = 20;
 
     //constructor that takes in x and y coordinates for pedal
-    public Pedal(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
+    
 
-    //gets x coordinate of pedal
-    public int getX() {
-        return x;
-    }
-
-    //sets x coordinate of pedal
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    //gets y coordinate of pedal
-    public int getY() {
-        return y;
-    }
-
-    //sets y coordinate of pedal
-    public void setY(int y) {
-        this.y = y;
-    }
 
     // moves the pedal left.
     public void moveLeft() {

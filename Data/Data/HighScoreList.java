@@ -1,4 +1,6 @@
+
 package Data;
+import Logic.*;
 //has two arrays which keep names and high scores respectively.
 import java.io.*;
 import java.util.ArrayList;

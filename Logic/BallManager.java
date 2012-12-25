@@ -36,8 +36,7 @@ public class BallManager {
 			x = 2*x;
 			y = 2*y;
 			
-			b.setVelocityX(x);
-			b.setVelocityY(Y);
+			b.setVelocity(new Velocity(x,y));
 			
 		}
 	}

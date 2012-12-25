@@ -2,7 +2,11 @@ package Logic;
 
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import Logic.*;
+import View.GameView;
 import Data.*;
 /* Game engine holds other logic classes maintain game objects,
 it detects collisions types and redraw objects. */
@@ -20,8 +24,9 @@ public class GameEngine {
 	private GameLooper gameLooper;
 	private KeyListener keyListener;
 	private boolean isMultiplayer;
+	private GameView gameView;
 	//Creates pedals, and most of the properties
-	public GameEngine(boolean isMultiplayer) {
+	public GameEngine(GameView gv, boolean isMultiplayer) {
 		bonuses = new ArrayList<Bonus>();
 		bricks = new ArrayList<Brick>();
 		walls = new ArrayList<Wall>();
@@ -34,7 +39,8 @@ public class GameEngine {
 		ballManager = new BallManager();
 		gameLooper = new GameLooper();
 		keyListener = new KeyListener();
-
+		gameView = new GameView();
+		
 		this.isMultiplayer = isMultiplayer;
 	}
 	// in multiplayer game if two padals is collide.
@@ -53,11 +59,11 @@ public class GameEngine {
 	public Bonus getRandomBonus() {
 		Bonus bonus;
 		switch((int)(Math.random() * 4)){
-			case 0: bonus = new BallBonus(); break;
-			case 1: bonus = new LifeBonus(); break;
-			case 2: bonus = new PedalLengthBonus(); break;
-			case 3: bonus = new ScoreBonus(); break;
-			default: bonus = new SpeedBonus(); break;
+			case 0: bonus = new BallBonus(""); break;
+			case 1: bonus = new LifeBonus(""); break;
+			case 2: bonus = new PedalLengthBonus(""); break;
+			case 3: bonus = new ScoreBonus(""); break;
+			default: bonus = new SpeedBonus(""); break;
 		}
 		return bonus;
 	}
@@ -115,9 +121,14 @@ public class GameEngine {
 		}
 	}
 	// updates the changes to the screen.
-	private void redrawObjects(int elapsedTime) {}
+	public void redrawObjects() {
+		
+	}
 	// Creates levels with intializing brick objects.
-	public void createLevel(int no) {}
+	public void createLevel(int no) {
+		NormalBrick b = new NormalBrick();
+		gameView.add(new JLabel(b));
+	}
 	public void increasePlayersHealth()
 	{
         playersHealth++;

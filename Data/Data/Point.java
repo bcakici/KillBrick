@@ -1,5 +1,4 @@
 package Data;
-import Logic.GameObject;
 // it keeps cordinate of point x,y in any position.
 public class Point {
 	private int x;

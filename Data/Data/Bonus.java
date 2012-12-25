@@ -1,10 +1,16 @@
 package Data;
+import Logic.*;
 
 import java.util.Random;
+
 //at the beginning bonuses are invisible and not falling because they are hidden in bricks
 public abstract class Bonus extends GameObject {
 
-    private boolean visible = false;
+    public Bonus(String imageFile) {
+		super(imageFile);
+		// TODO Auto-generated constructor stub
+	}
+	private boolean visible = false;
 
     private Random rgen = new Random();
     private int velocity = 0;

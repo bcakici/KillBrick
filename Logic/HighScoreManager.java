@@ -10,12 +10,14 @@ public class HighScoreManager {
 	private HighScoreList highScoreList;
 	//returns high scores from list
 	public HighScoreList getHighScoreList() {
+		return highScoreList;
+	}
 	// adds the score to currently active game
 	public void addScoreToCurrentGame(int score) {}
 	// get the players score
-	public int getLastScore() {}
+	public int getLastScore() {return 0;}
 	// submits player's name with his score
-	public void submitLastScore(string name) {}
+	public void submitLastScore(String name) {}
 	// starts too keep score when the user starts new game.
 	public void startNewScore() {}
 }

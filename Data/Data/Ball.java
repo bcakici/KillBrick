@@ -1,8 +1,12 @@
 package Data;
+import Logic.*;
 //this class corresponds to ball in game
 public class Ball extends GameObject {
-	public BallManager;
 
+	public Ball(String imageFile) {
+		super(imageFile);
+		// TODO Auto-generated constructor stub
+	}
 	// calculate the reflect ball form
 	public void reflectFrom(Point Collision)
 	{

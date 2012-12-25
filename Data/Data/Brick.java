@@ -5,7 +5,6 @@ public abstract class Brick extends GameObject {
     //declare x & y coordinates
     int x, y;
 
-    Bonus bonus;
 
     private int health;
 	private Bonus bonus;
@@ -13,32 +12,16 @@ public abstract class Brick extends GameObject {
     //declare boolean to determine if brick has been hit
     boolean exploded;
 
-    //constructor takes in x and y coordinates
-    public Brick(int x, int y, Bonus b) {
-        this.bonus = b;
-        this.x = x;
-        this.y = y;
-        this.exploded = false;
+    //constructor takes image
+    public Brick(String imagefile){
+    	super(imagefile);
     }
-
+    
     //set if the brick is hit or not
     public void setExploded(boolean exploded) {
         this.exploded = exploded;
     }
 
-    //gets x coordinate of brick
-    public int getX() {
-        return x;
-    }
-
-    //gets y coordinate of brick
-    public int getY() {
-        return y;
-    }
-
-    public Bonus getBonus() {
-        return bonus;
-    }
 
     public void setBonus(Bonus bonus) {
         this.bonus = bonus;

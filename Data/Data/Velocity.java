@@ -1,6 +1,4 @@
 package Data;
-
-import Logic.GameObject;
 // it keeps velocity of dynamic objects.
 public class Velocity {
 

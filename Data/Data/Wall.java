@@ -3,6 +3,10 @@ package Data;
 // wall is the object around the screen.
 // it keeps wall height and width.
 public class Wall extends GameObject {
+	public Wall(String imageFile) {
+		super(imageFile);
+		// TODO Auto-generated constructor stub
+	}
 	private int height;
 	private int width;
 	// Get the wall height.

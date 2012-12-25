@@ -1,40 +1,23 @@
 
+package Data;
 import java.awt.Image;
 import java.awt.Rectangle;
 
-package Data;
+import javax.swing.ImageIcon;
+
 /*
  * GameObject is an abstract class which is implemented by wall, pedal, ball,
  * bonuses, and bricks.
  */
 
-public abstract class GameObject {
-
+public abstract class GameObject extends ImageIcon{
     private Point position;
     private Velocity velocity;
     private int height, width;
 	
 	private Image image;
-	Rectangle rect ;
-	boolean out;
-	public GameObject(Position p, int width, int height) {
-		this.position =p;
-		rect = new Rectangle();
-		setRect(this.position.getX(),this.position.getY(),width,height);
-		
-	}
-
-        
-	public GameObject(Position p, int width, int height, Velocity v) {
-		this.position =p;
-		this.width = width;
-                this.height = height;
-                this.velocity = v;
-                rect = new Rectangle();
-		
-                setRect(this.position.getX(),this.position.getY(),width,height);
-                
-		
+	public GameObject( String imageFile){
+		super(imageFile);
 	}
     public int getHeight() {
         return height;
@@ -57,6 +40,7 @@ public abstract class GameObject {
         if (this.position.getX() == o.position.getX() && this.position.getY() == o.position.getY()) {
             return this.position;
         }
+        return null;
     }
     //gets the position of objects.
 
@@ -73,8 +57,6 @@ public abstract class GameObject {
      * if it is a ball draws ball, if it is brick draws brick and so on
      */
 
-    public void redraw() {
-    }
 
     public Velocity getVelocity() {
         return this.velocity;
