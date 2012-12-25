@@ -1,4 +1,3 @@
-
 /* holds and controls GameView, HighScoreView, HelpView, AboutUsView and MainMenu.
 * this class is designed like singleton pattern because there must be only one instance
 * of it */
@@ -39,6 +38,8 @@ public class ViewController extends javax.swing.JFrame{
     private ViewController() {
         initComponents();
         this.setTitle("Kill Brick");
+        
+        
         gameView = new GameView();
         this.add(gameView);
         
@@ -53,11 +54,7 @@ public class ViewController extends javax.swing.JFrame{
         
         mainMenu = new MainMenu();
         this.add(mainMenu);
-        
-        //We need to close up all panels except main menu
-        hideAllPanels();
-        mainMenu.setVisible(true);  
-        startSingleplayerGame(true);
+        this.showMainMenu();
     }
     
     public void hideAllPanels() {
