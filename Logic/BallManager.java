@@ -26,5 +26,12 @@ public class BallManager {
 		Ball firstBall = balls.get( 0);
 		firstBall.free();
 	}
-	public void increaseSpeed(){}
+	public void increaseSpeed()
+	{
+		for( Ball b: balls){
+			double c = b.getVelocity();
+			c = 2*c;
+			b.setVelocity(c);
+		}
+	}
 }
