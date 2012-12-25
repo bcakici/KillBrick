@@ -26,4 +26,5 @@ public class BallManager {
 		Ball firstBall = balls.get( 0);
 		firstBall.free();
 	}
+	public void increaseSpeed(){}
 }

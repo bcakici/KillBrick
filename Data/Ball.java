@@ -11,11 +11,6 @@ public class Ball extends GameObject {
 	*  if it is a ball draws ball, if it is brick draws brick and so on */
 	public void redraw() {}
 
-	//coordinates
-    int x,y;
-
-    //velocities
-     int dx, dy;
 
      //Singleton instance
     private static Ball ball = null;
@@ -37,46 +32,6 @@ public class Ball extends GameObject {
 
         }
         return ball;
-    }
-
-    //gets x velocity of the ball
-    public int getXVelocity() {
-        return dx;
-    }
-
-    //sets x velocity of ball
-    public void setXVelocity(int dx) {
-        this.dx = dx;
-    }
-
-    //gets y velocity of ball
-    public int getYVelocity() {
-        return dy;
-    }
-
-    //sets y velocity of ball
-    public void setYVelocity(int dy) {
-        this.dy = dy;
-    }
-
-    //gets x-coordinate of ball
-    public int getX() {
-        return x;
-    }
-
-    //sets x-coordinate of ball
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    //gets y-coordinate of ball
-    public int getY() {
-        return y;
-    }
-
-    //sets y-coordinate of ball
-    public void setY(int y) {
-        this.y = y;
     }
 }
 
