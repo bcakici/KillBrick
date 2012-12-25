@@ -22,7 +22,7 @@ public class GameEngine {
 	private SoundManager soundManager;
 	private BallManager ballManager;
 	private GameLooper gameLooper;
-	private KeyListener keyListener;
+	private KeyboardListener keyboardListener;
 	private boolean isMultiplayer;
 	private GameView gameView;
 	//Creates pedals, and most of the properties
@@ -38,9 +38,10 @@ public class GameEngine {
 		soundManager = new SoundManager();
 		ballManager = new BallManager();
 		gameLooper = new GameLooper();
-		keyListener = new KeyListener();
+		keyboardListener = new KeyboardListener( this);
 		gameView = gv;
 		
+		gameView.addKeyListener(keyboardListener);
 		this.isMultiplayer = isMultiplayer;
 	}
 	// in multiplayer game if two padals is collide.
@@ -127,11 +128,26 @@ public class GameEngine {
 	// Creates levels with intializing brick objects.
 	public void createLevel(int no) {
 		NormalBrick b = new NormalBrick();
-		gameView.add(new JLabel(b));
+		gameView.add(b);
+		StrongBrick s = new StrongBrick();
+		gameView.add(s);
+		pedal = new Pedal();
+		gameView.add(pedal);
 	}
 	public void increasePlayersHealth()
 	{
         playersHealth++;
+	}
+	public Pedal getPedal1(){
+		return pedal;
+	}
+	public Pedal getPedal2(){
+		if( isMultiplayer){
+			return pedal2;
+		}
+		else{
+			return getPedal1();
+		}
 	}
 	public void decreasePlayersHealth()
 	{
