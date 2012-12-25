@@ -29,9 +29,16 @@ public class BallManager {
 	public void increaseSpeed()
 	{
 		for( Ball b: balls){
-			double c = b.getVelocity();
-			c = 2*c;
-			b.setVelocity(c);
+			Velocity v = b.getVelocity();
+			double x = v.getVelocityX();
+			double y = v.getVelocityY();
+			
+			x = 2*x;
+			y = 2*y;
+			
+			b.setVelocityX(x);
+			b.setVelocityY(Y);
+			
 		}
 	}
 }
