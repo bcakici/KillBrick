@@ -8,7 +8,7 @@ import Data.*;
 it detects collisions types and redraw objects. */
 
 public class GameEngine {
-    private int playersHelath = 3;
+    private int playersHealth = 3;
 	private ArrayList<Bonus> bonuses;
 	private ArrayList<Brick> bricks;
 	private ArrayList<Wall> walls;
@@ -121,5 +121,13 @@ public class GameEngine {
 	public void increasePlayersHealth()
 	{
         playersHealth++;
+	}
+	public void decreasePlayersHealth()
+	{
+        if(playersHealth == 0){
+            stopGame();
+        }else{
+            playersHealth--;
+        }
 	}
 }
