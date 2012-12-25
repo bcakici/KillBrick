@@ -29,7 +29,6 @@ public class Ball extends GameObject {
     public static Ball getBall(int x, int y){
         if(ball == null){
             ball = new Ball(x, y);
-
         }
         return ball;
     }
