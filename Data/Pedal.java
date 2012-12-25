@@ -103,4 +103,3 @@ public class Pedal extends GameObject {
 
 
 }
->>>>>>> Data Package-Version 0.0.1
