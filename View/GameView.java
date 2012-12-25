@@ -1,8 +1,8 @@
 //-	keeps the GameObject
 package View;
-import java.awt.*;
+import javax.swing.JPanel;
 
-public class GameView {
+public class GameView extends JPanel {
 	//keeps the option of single or multi player game.
 	//creates GameEngine object
 	public void createGameEngine(boolean isMultiplayer, boolean sound) {}

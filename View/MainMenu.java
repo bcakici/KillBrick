@@ -7,5 +7,7 @@ import javax.swing.JPanel;
 *  will display clicked views */ 
 public class MainMenu extends JPanel {
 	//if the variable isMultiplayer is true starts a multiplayer game
-	public void startGame(boolean isMultiplayer) {}
+	public void startGame(boolean isMultiplayer) {
+        
+        }
 }
