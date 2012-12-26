@@ -9,17 +9,22 @@ public class BallBonus extends Bonus {
 		super(imageFile);
 		// TODO Auto-generated constructor stub
 	}
+
 	private int ballCount;
-	/* this method redraws game object this method is implemented by every gameobject itself
-	*  if it is a ball draws ball, if it is brick draws brick and so on */
-	public void redraw()
-	{
-    }
+
+	/*
+	 * this method redraws game object this method is implemented by every
+	 * gameobject itself if it is a ball draws ball, if it is brick draws brick
+	 * and so on
+	 */
+	public void redraw() {
+	}
+
 	@Override
 	public void gainBonus(GameEngine e, Pedal p, BallManager b,
 			HighScoreManager h) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

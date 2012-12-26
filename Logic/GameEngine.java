@@ -3,16 +3,27 @@ package Logic;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-import Logic.*;
+import Data.Ball;
+import Data.BallBonus;
+import Data.Bonus;
+import Data.Brick;
+import Data.LifeBonus;
+import Data.NormalBrick;
+import Data.Pedal;
+import Data.PedalLengthBonus;
+import Data.Point;
+import Data.ScoreBonus;
+import Data.SpeedBonus;
+import Data.StrongBrick;
+import Data.Wall;
 import View.GameView;
-import Data.*;
+
 /* Game engine holds other logic classes maintain game objects,
-it detects collisions types and redraw objects. */
+ it detects collisions types and redraw objects. */
 
 public class GameEngine {
-    private int playersHealth = 3;
+	private int playersHealth = 3;
 	private ArrayList<Bonus> bonuses;
 	private ArrayList<Brick> bricks;
 	private ArrayList<Wall> walls;
@@ -25,108 +36,135 @@ public class GameEngine {
 	private KeyboardListener keyboardListener;
 	private boolean isMultiplayer;
 	private GameView gameView;
-	//Creates pedals, and most of the properties
+
+	// Creates pedals, and most of the properties
 	public GameEngine(GameView gv, boolean isMultiplayer) {
 		bonuses = new ArrayList<Bonus>();
 		bricks = new ArrayList<Brick>();
 		walls = new ArrayList<Wall>();
 		pedal = new Pedal();
-		if( isMultiplayer){
+		if (isMultiplayer) {
 			pedal2 = new Pedal();
 		}
 		highScoreManager = new HighScoreManager();
 		soundManager = new SoundManager();
 		ballManager = new BallManager();
-		gameLooper = new GameLooper( this);
-		keyboardListener = new KeyboardListener( this);
+		gameLooper = new GameLooper(this);
+		keyboardListener = new KeyboardListener(this);
 		gameView = gv;
-		
+
 		gameView.addKeyListener(keyboardListener);
 		this.isMultiplayer = isMultiplayer;
 	}
+
 	// in multiplayer game if two padals is collide.
 	public boolean isPedalsCollide() {
-		if( isMultiplayer){
-			return( pedal.getCollision(pedal2) != null);
+		if (isMultiplayer) {
+			return (pedal.getCollision(pedal2) != null);
 		}
 		return false;
 	}
+
 	// it destroy nessecary objects like brick, ball..
-	public void destroyObjects() {}
-	// it is stop the game.
-	public void stopGame() {}
-	// Elapse method calls redrawObject method and calculateCollisions method.
-	public void elapse( double time) {
-		
+	public void destroyObjects() {
 	}
+
+	// it is stop the game.
+	public void stopGame() {
+	}
+
+	// Elapse method calls redrawObject method and calculateCollisions method.
+	public void elapse(double time) {
+
+	}
+
 	public Bonus getRandomBonus() {
 		Bonus bonus;
-		switch((int)(Math.random() * 4)){
-			case 0: bonus = new BallBonus(""); break;
-			case 1: bonus = new LifeBonus(""); break;
-			case 2: bonus = new PedalLengthBonus(""); break;
-			case 3: bonus = new ScoreBonus(""); break;
-			default: bonus = new SpeedBonus(""); break;
+		switch ((int) (Math.random() * 4)) {
+		case 0:
+			bonus = new BallBonus("");
+			break;
+		case 1:
+			bonus = new LifeBonus("");
+			break;
+		case 2:
+			bonus = new PedalLengthBonus("");
+			break;
+		case 3:
+			bonus = new ScoreBonus("");
+			break;
+		default:
+			bonus = new SpeedBonus("");
+			break;
 		}
 		return bonus;
 	}
-	//it takes the id of the pedal and direction of the pedal
-	//as a parameter and enables to move the pedal.
-	public void movePedal(int pedalsNumber, boolean direction) {}
-	/*calculates the type of collision and according to result calls other methods if necessary.
-	 * There are four collision types that should be calculated such as between Ball-Brick,
-	 * Ball - Pedal, Ball - Wall, Bonus - Pedal.*/
+
+	// it takes the id of the pedal and direction of the pedal
+	// as a parameter and enables to move the pedal.
+	public void movePedal(int pedalsNumber, boolean direction) {
+	}
+
+	/*
+	 * calculates the type of collision and according to result calls other
+	 * methods if necessary. There are four collision types that should be
+	 * calculated such as between Ball-Brick, Ball - Pedal, Ball - Wall, Bonus -
+	 * Pedal.
+	 */
 	private void calculateCollisions() {
 		calculateBallCollisions();
 		calculateBonusCollisions();
 	}
-	private void calculateBonusCollisions(){
-		for( Bonus bonus: bonuses){
-			Point collision = bonus.getCollision( pedal);
-			if( collision != null){
+
+	private void calculateBonusCollisions() {
+		for (Bonus bonus : bonuses) {
+			Point collision = bonus.getCollision(pedal);
+			if (collision != null) {
 				bonus.gainBonus(this, pedal, ballManager, highScoreManager);
-			}
-			else if( isMultiplayer){
-				collision = bonus.getCollision( pedal2);
-				if( collision != null){
+			} else if (isMultiplayer) {
+				collision = bonus.getCollision(pedal2);
+				if (collision != null) {
 					bonus.gainBonus(this, pedal2, ballManager, highScoreManager);
 				}
 			}
 		}
 	}
-	private void calculateBallCollisions(){
+
+	private void calculateBallCollisions() {
 		ArrayList<Ball> balls = ballManager.getBalls();
-		for( Ball ball: balls){
+		for (Ball ball : balls) {
 			Point collision;
-			for( Brick brick: bricks){
+			for (Brick brick : bricks) {
 				collision = ball.getCollision(brick);
-				if( collision != null){
+				if (collision != null) {
 					brick.decreaseHealth();
-					if( brick.isExploded()){
+					if (brick.isExploded()) {
 						Bonus b = brick.getBonus();
-						if( b != null){
+						if (b != null) {
 							b.setVisibleAndFalling();
 						}
 					}
 					break;
 				}
 			}
-			for( Wall wall: walls){
+			for (Wall wall : walls) {
 				collision = ball.getCollision(wall);
 			}
-			collision = ball.getCollision( pedal);
-			if( isMultiplayer){
-				collision = ball.getCollision( pedal2);
+			collision = ball.getCollision(pedal);
+			if (isMultiplayer) {
+				collision = ball.getCollision(pedal2);
 			}
-			if( collision != null){
+			if (collision != null) {
 				ball.reflectFrom(collision);
 			}
 		}
 	}
+
 	// updates the changes to the screen.
 	public void redrawObjects() {
-		
+
 	}
+
 	// Creates levels with intializing brick objects.
 	public void createLevel(int no) {
 		NormalBrick b = new NormalBrick();
@@ -136,27 +174,28 @@ public class GameEngine {
 		pedal = new Pedal();
 		gameView.add(new JLabel(pedal));
 	}
-	public void increasePlayersHealth()
-	{
-        playersHealth++;
+
+	public void increasePlayersHealth() {
+		playersHealth++;
 	}
-	public Pedal getPedal1(){
+
+	public Pedal getPedal1() {
 		return pedal;
 	}
-	public Pedal getPedal2(){
-		if( isMultiplayer){
+
+	public Pedal getPedal2() {
+		if (isMultiplayer) {
 			return pedal2;
-		}
-		else{
+		} else {
 			return getPedal1();
 		}
 	}
-	public void decreasePlayersHealth()
-	{
-        if(playersHealth == 0){
-            stopGame();
-        } else{
-            playersHealth--;
-        }
+
+	public void decreasePlayersHealth() {
+		if (playersHealth == 0) {
+			stopGame();
+		} else {
+			playersHealth--;
+		}
 	}
 }
