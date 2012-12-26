@@ -1,5 +1,7 @@
 package Data;
 
+import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 
@@ -12,17 +14,20 @@ import javax.swing.JPanel;
  * bonuses, and bricks.
  */
 
-public abstract class GameObject extends ImageIcon {
+public abstract class GameObject {
 	private Point position;
 	private Velocity velocity;
 	private int height, width;
-	private static ImageIcon image;
-
+	private JLabel view;
 	public GameObject(String imageFile) {
-		super(imageFile);
-
+		ImageIcon image = new ImageIcon( imageFile);
+		view = new JLabel( image);
+		width = image.getIconWidth();
+		height = image.getIconHeight();
 	}
-
+	public JLabel getView(){
+		return view;
+	}
 	public int getHeight() {
 		return height;
 	}
@@ -57,10 +62,9 @@ public abstract class GameObject extends ImageIcon {
 	}
 
 	// sets and updates the position of objects
-
 	public void setPosition(Point p) {
 		this.position = p;
-		this.component.setLocation(p);
+		view.setBounds((int)p.getX(), (int)p.getY(), width, height);
 		// this.setLocation( p);
 	}
 

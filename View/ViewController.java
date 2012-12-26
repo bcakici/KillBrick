@@ -110,8 +110,7 @@ public class ViewController extends javax.swing.JFrame {
 	// is displayed on this screen
 	public void showEnterNamePanel() {
 		do {
-			playerName = showEnterNamePanel
-					.showInputDialog("Enter your name : ");
+			playerName = showEnterNamePanel.showInputDialog("Enter your name : ");
 		} while (playerName == null);
 	}
 

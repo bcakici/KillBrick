@@ -5,6 +5,11 @@ public class Point extends java.awt.Point {
 	// it gets x cordinate
 	double x, y;
 
+	public Point(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
+
 	public double getX() {
 		return this.x;
 	}

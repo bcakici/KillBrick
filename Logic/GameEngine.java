@@ -167,12 +167,13 @@ public class GameEngine {
 
 	// Creates levels with intializing brick objects.
 	public void createLevel(int no) {
-		NormalBrick b = new NormalBrick();
-		gameView.add(new JLabel(b));
-		StrongBrick s = new StrongBrick();
-		gameView.add(new JLabel(s));
+		//NormalBrick b = new NormalBrick();
+		//gameView.add(new JLabel(b));
+		//StrongBrick s = new StrongBrick();
+		//gameView.add(new JLabel(s));
 		pedal = new Pedal();
-		gameView.add(new JLabel(pedal));
+		gameView.add(pedal.getView());
+		pedal.setPosition( new Point( 200, 200));
 	}
 
 	public void increasePlayersHealth() {
