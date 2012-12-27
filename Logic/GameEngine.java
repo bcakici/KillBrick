@@ -187,7 +187,6 @@ public class GameEngine {
 		//gameView.add(new JLabel(s));
 		pedal = new Pedal();
 		gameView.add(pedal.getView());
-		pedal.setVelocity( new Velocity( 1,1));
 		pedal.setPosition( new Point( 200, 200));
 	}
 

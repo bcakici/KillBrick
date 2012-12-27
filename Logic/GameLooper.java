@@ -37,6 +37,5 @@ public class GameLooper extends Timer {
 
 		gameEngine.elapse((System.currentTimeMillis() - lastTime)/20);
 		lastTime = System.currentTimeMillis();
-		System.out.println("asd");
 	}
 }
