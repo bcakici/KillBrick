@@ -59,14 +59,6 @@ public class GameEngine {
 		this.isMultiplayer = isMultiplayer;
 	}
 
-	// in multiplayer game return if two pedals is collide.
-	public boolean isPedalsCollide() {
-		if (isMultiplayer) {
-			return (pedal.getCollision(pedal2) != null);
-		}
-		return false;
-	}
-
 	// it destroy nessecary objects like brick, ball..
 	public void destroyObjects() {
 	}
@@ -92,24 +84,34 @@ public class GameEngine {
 		}
 	}
 
-	public Bonus getRandomBonus() {
+	public Bonus createRandomBonus( Brick brick) {
+		double x = brick.getPosition().getX();
+		double y = brick.getPosition().getY();
 		Bonus bonus;
-		switch ((int) (Math.random() * 4)) {
+		switch ((int) (Math.random() * 14)) {
 		case 0:
-			bonus = new BallBonus("");
+			bonus = new BallBonus();
 			break;
 		case 1:
-			bonus = new LifeBonus("");
+			bonus = new LifeBonus();
 			break;
 		case 2:
-			bonus = new PedalLengthBonus("");
+			bonus = new PedalLengthBonus();
 			break;
 		case 3:
-			bonus = new ScoreBonus("");
+			bonus = new ScoreBonus();
+			break;
+		case 4:
+			bonus = new SpeedBonus();
 			break;
 		default:
-			bonus = new SpeedBonus("");
+			bonus = null;
 			break;
+		}
+		if (bonus != null) {
+			brick.setBonus(bonus);
+			gameView.add( bonus.getView());
+			bonuses.add(bonus);
 		}
 		return bonus;
 	}
@@ -188,10 +190,11 @@ public class GameEngine {
 	}
 	private void addBricks(int level){
 		if (level == 1) {
-			addBrick(1,1, true);
-			addBrick(2,2, false);
-			addBrick(3,3, false);
-			addBrick(4,4, true);
+			for( int i = 1; i < 15; i++){
+				for( int k = 1; k < 4; k++){
+					addBrick( i, k, false);
+				}
+			}
 		} else if (level == 2) {
 
 		} else if (level == 3) {
@@ -217,20 +220,22 @@ public class GameEngine {
 		walls.add( top);
 		walls.add( right);
 	}
-	private Brick addBrick( double row, double column, boolean isStrong){
+	private Brick addBrick( int column, int row, boolean isStrong){
 		if (isStrong) {
 			StrongBrick brick = new StrongBrick();
-			brick.setPosition(new Point((row - 1 / 2) * brick.getWidth(),
-					(column - 1 / 2) * brick.getHeight()));
+			brick.setPosition(new Point((column - 0.5) * brick.getWidth(),
+					(row - 0.5) * brick.getHeight()));
 			gameView.add(brick.getView());
 			bricks.add(brick);
+			createRandomBonus( brick);
 			return brick;
 		} else {
 			NormalBrick brick = new NormalBrick();
-			brick.setPosition(new Point((row - 1 / 2) * brick.getWidth(),
-					(column - 1 / 2) * brick.getHeight()));
+			brick.setPosition(new Point((column - 0.5) * brick.getWidth(),
+					(row - 0.5) * brick.getHeight()));
 			gameView.add(brick.getView());
 			bricks.add(brick);
+			createRandomBonus( brick);
 			return brick;
 		}
 	}

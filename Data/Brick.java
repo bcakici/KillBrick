@@ -18,8 +18,15 @@ public abstract class Brick extends GameObject {
 
 	public void setBonus(Bonus bonus) {
 		this.bonus = bonus;
+		bonus.setPosition( getPosition());
 	}
-
+	@Override
+	public void setPosition(Point p) {
+		super.setPosition(p);
+		if( bonus != null){
+			bonus.setPosition( getPosition());
+		}
+	}
 	// checks if brick is broken or not.
 	public boolean isExploded() {
 		return (health == 0);
@@ -27,7 +34,7 @@ public abstract class Brick extends GameObject {
 
 	public void decreaseHealth() {
 		health--;
-		if (bonus != null) {
+		if ( isExploded() && bonus != null) {
 			bonus.setVisibleAndFalling();
 		}
 	}

@@ -35,7 +35,7 @@ public class BallManager {
 			ball.move( elapsedTime);
 		}
 	}
-	public void increaseSpeed() {
+	public void increaseBallSpeeds() {
 		for (Ball b : balls) {
 			Velocity v = b.getVelocity();
 			double x = v.getVelocityX();

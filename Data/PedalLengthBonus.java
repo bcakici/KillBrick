@@ -5,9 +5,11 @@ import Logic.*;
 //can able to length or shorten the pedal.
 public class PedalLengthBonus extends Bonus {
 
-	public PedalLengthBonus(String imageFile) {
-		super(imageFile);
-		// TODO Auto-generated constructor stub
+	public PedalLengthBonus() {
+		super("images/bonus.png");
+	}
+	public PedalLengthBonus(double x, double y) {
+		super("images/bonus.png");
 	}
 
 	private double lengthMultiplier;

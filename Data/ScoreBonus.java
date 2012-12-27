@@ -4,9 +4,11 @@ import Logic.*;
 
 //gives extra points to user when the user catch that bonus.
 public class ScoreBonus extends Bonus {
-	public ScoreBonus(String imageFile) {
-		super(imageFile);
-		// TODO Auto-generated constructor stub
+	public ScoreBonus() {
+		super("images/bonus.png");
+	}
+	public ScoreBonus(double x, double y) {
+		super("images/bonus.png");
 	}
 
 	private int score;

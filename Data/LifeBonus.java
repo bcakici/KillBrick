@@ -5,9 +5,11 @@ import Logic.*;
 //increment the life by one that the user already has.
 public class LifeBonus extends Bonus {
 
-	public LifeBonus(String imageFile) {
-		super(imageFile);
-		// TODO Auto-generated constructor stub
+	public LifeBonus() {
+		super("images/bonus.png");
+	}
+	public LifeBonus(double x, double y) {
+		super("images/bonus.png");
 	}
 
 	// every bonuses implement this method differently, each bonus call it
