@@ -19,13 +19,6 @@ public class BallManager {
 		balls = new ArrayList<Ball>();
 	}
 
-	// before the game start this method is called to attach the first ball to
-	// pedal
-	public void attachFirstBallTo(Pedal p) {
-		Ball firstBall = balls.get(0);
-		p.attach(firstBall);
-	}
-
 	// returns all balls that are active
 	public ArrayList<Ball> getBalls() {
 		return balls;
@@ -48,17 +41,21 @@ public class BallManager {
 		}
 	}
 
-	public void addBall(double x, double y, GameView gv){
+	public Ball addBall(double x, double y, GameView gv){
+		Ball ball = addBall( gv);	
+		ball.setPosition( new Point( x, y));
+		return ball;
+	}
+	public Ball addBall(GameView gv){
 		Ball ball = new Ball();
 		gv.add( ball.getView());
-		ball.setPosition( new Point( x, y));
-		ball.setDefaultVelocity();
 		balls.add( ball);
+		return ball;
 	}
 	public void addBalls( int count, GameView gv){
 		for( int i = 0; i < count; i++){
-			addBall( balls.get(0).getPosition().getX(), balls.get(0).getPosition().getY(), gv);
-			
+			addBall( balls.get(0).getPosition().getX(), balls.get(0).getPosition().getY(), gv)
+					.setDefaultVelocity();
 		}
 	}
 	public void makeBallCollisions( GameEngine e, ArrayList<Brick> bricks, ArrayList<Wall> walls, Pedal pedal1, Pedal pedal2) {
@@ -82,8 +79,8 @@ public class BallManager {
 	public void handleFalls(GameView gv) {
 		for( Ball ball : balls){
 			if( ball.getPosition().getY()>620){
-				balls.remove(ball);
 				gv.remove( ball.getView());
+				balls.remove(ball);
 				break;
 			}
 		}

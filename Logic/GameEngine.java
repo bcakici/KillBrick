@@ -25,7 +25,7 @@ import View.ViewController;
  it detects collisions types and redraw objects. */
 
 public class GameEngine {
-	private int playersHealth = 3;
+	private int lives = 3;
 	private ArrayList<Bonus> bonuses;
 	private ArrayList<Brick> bricks;
 	private ArrayList<Wall> walls;
@@ -57,10 +57,13 @@ public class GameEngine {
 		gameView.requestFocusInWindow();
 		
 		this.isMultiplayer = isMultiplayer;
+		lives = 3;
 	}
 
-	// it destroy nessecary objects like brick, ball..
+	// it destroy necessary to destroy objects when changing levels
 	public void destroyObjects() {
+		//ballManager.destroyBalls();
+		
 	}
 
 	// it is stop the game.
@@ -73,7 +76,7 @@ public class GameEngine {
 		moveObjects( time);
 		ballManager.handleFalls( gameView);
 		if( !ballManager.hasBalls()){
-			stopGame();
+			decreaseLives();
 		}
 		else{
 			calculateCollisions();
@@ -181,8 +184,7 @@ public class GameEngine {
 		addBricks( level);
 		addPedals();
 		addWalls();
-		ballManager.addBall( 0, 0, gameView);
-		ballManager.attachFirstBallTo( pedal);
+		addStartingBall();
 		gameLooper.start();
 	}
 	private void addBricks(int level){
@@ -236,8 +238,8 @@ public class GameEngine {
 			return brick;
 		}
 	}
-	public void increasePlayersHealth() {
-		playersHealth++;
+	public void increaseLives() {
+		lives++;
 	}
 
 	public Pedal getPedal1() {
@@ -251,12 +253,27 @@ public class GameEngine {
 			return null;
 		}
 	}
-
-	public void decreasePlayersHealth() {
-		if (playersHealth == 0) {
+	private void addStartingBall(){
+		pedal.attach( ballManager.addBall( gameView));
+	}
+	public void decreaseLives() {
+		removeFallingBonuses();
+		if (lives == 0) {
 			stopGame();
 		} else {
-			playersHealth--;
+			lives--;
+			addStartingBall();
+		}
+	}
+	public void removeFallingBonuses(){
+		for( int i = 0; i < bonuses.size(); i++){
+			Bonus bonus = bonuses.get(i);
+			if( bonus.isVisible()){
+				gameView.remove( bonus.getView());
+				gameView.repaint();
+				bonuses.remove( bonus);
+				i--;
+			}
 		}
 	}
 }

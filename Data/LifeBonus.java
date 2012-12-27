@@ -16,7 +16,7 @@ public class LifeBonus extends Bonus {
 	// related methods.
 	public void gainBonus(GameEngine e, Pedal p, BallManager b,
 			HighScoreManager h) {
-		e.increasePlayersHealth();
+		e.increaseLives();
 	}
 
 }

@@ -10,7 +10,7 @@ public class Ball extends GameObject {
 	}
 
 	public void setDefaultVelocity() {
-		double randomAngle = Math.random() * 15 + 45;
+		double randomAngle = (Math.random() * 25 + 30) * Math.PI / 180;
 		double magnitude = 9.0;
 		setVelocity(new Velocity(magnitude * Math.cos(randomAngle), magnitude
 				* Math.sin(randomAngle)));
