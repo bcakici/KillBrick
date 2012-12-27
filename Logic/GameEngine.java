@@ -44,10 +44,7 @@ public class GameEngine {
 		bonuses = new ArrayList<Bonus>();
 		bricks = new ArrayList<Brick>();
 		walls = new ArrayList<Wall>();
-		pedal = new Pedal();
-		if (isMultiplayer) {
-			pedal2 = new Pedal();
-		}
+		
 		highScoreManager = new HighScoreManager();
 		soundManager = new SoundManager();
 		ballManager = new BallManager();
@@ -60,8 +57,6 @@ public class GameEngine {
 		gameView.requestFocusInWindow();
 		
 		this.isMultiplayer = isMultiplayer;
-		
-		gameLooper.start();
 	}
 
 	// in multiplayer game return if two pedals is collide.
@@ -138,7 +133,7 @@ public class GameEngine {
 	}
 	private void stopIfCollideWithWalls( Pedal p){
 		for( Wall wall: walls){
-			pedal.stopIfCollide( wall);
+			p.stopIfCollide( wall);
 		}
 	}
 
@@ -204,6 +199,8 @@ public class GameEngine {
 		addPedals();
 		addWalls();
 		ballManager.addBall( 0, 0, gameView);
+		
+		gameLooper.start();
 	}
 	private void addBricks(int level){
 		if (level == 1) {
@@ -219,11 +216,11 @@ public class GameEngine {
 
 	}
 	private void addPedals(){
-		pedal = new Pedal();
+		pedal = new Pedal( false);
 		gameView.add( pedal.getView());
 		pedal.setPosition( new Point( 200, 500));
 		if( isMultiplayer){
-			pedal2 = new Pedal();
+			pedal2 = new Pedal( true);
 			gameView.add( pedal2.getView());
 			pedal2.setPosition( new Point( 600, 500));
 		}
@@ -265,7 +262,7 @@ public class GameEngine {
 		if (isMultiplayer) {
 			return pedal2;
 		} else {
-			return getPedal1();
+			return null;
 		}
 	}
 

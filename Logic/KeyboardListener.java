@@ -22,6 +22,12 @@ public class KeyboardListener extends KeyAdapter {
 		else if (pressed == KeyEvent.VK_RIGHT) {
 			gameEngine.getPedal1().moveRight();
 		}
+		else if (pressed == KeyEvent.VK_A) {
+			gameEngine.getPedal2().moveLeft();
+		}
+		else if (pressed == KeyEvent.VK_D) {
+			gameEngine.getPedal2().moveRight();
+		}
 		gameEngine.stopPedalsIfCollide();
 	}
 
@@ -34,6 +40,12 @@ public class KeyboardListener extends KeyAdapter {
 		}
 		else if (pressed == KeyEvent.VK_RIGHT) {
 			gameEngine.getPedal1().stop();
+		}
+		else if (pressed == KeyEvent.VK_A) {
+			gameEngine.getPedal2().stop();
+		}
+		else if (pressed == KeyEvent.VK_D) {
+			gameEngine.getPedal2().stop();
 		}
 
 	}

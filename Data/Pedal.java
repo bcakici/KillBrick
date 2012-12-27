@@ -3,8 +3,8 @@ package Data;
 //draws the pedal and keeps its length.
 public class Pedal extends GameObject {
 
-	public Pedal() {
-		super("images/pedal1_normal.png");
+	public Pedal(boolean isSecond) {
+		super(isSecond ? "images/pedal2_normal.png" : "images/pedal1_normal.png");
 		// TODO Auto-generated constructor stub
 	}
 
