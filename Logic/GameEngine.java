@@ -16,6 +16,7 @@ import Data.Point;
 import Data.ScoreBonus;
 import Data.SpeedBonus;
 import Data.StrongBrick;
+import Data.Velocity;
 import Data.Wall;
 import View.GameView;
 
@@ -55,6 +56,8 @@ public class GameEngine {
 
 		gameView.addKeyListener(keyboardListener);
 		this.isMultiplayer = isMultiplayer;
+		
+		gameLooper.start();
 	}
 
 	// in multiplayer game if two padals is collide.
@@ -75,7 +78,18 @@ public class GameEngine {
 
 	// Elapse method calls redrawObject method and calculateCollisions method.
 	public void elapse(double time) {
-
+		moveObjects( time);
+		calculateCollisions();
+	}
+	private void moveObjects( double elapsedTime){
+		ballManager.moveBalls( elapsedTime);
+		for (Bonus bonus : bonuses) {
+			bonus.move( elapsedTime);
+		}
+		pedal.move( elapsedTime);
+		if( isMultiplayer){
+			pedal2.move( elapsedTime);
+		}
 	}
 
 	public Bonus getRandomBonus() {
@@ -173,6 +187,7 @@ public class GameEngine {
 		//gameView.add(new JLabel(s));
 		pedal = new Pedal();
 		gameView.add(pedal.getView());
+		pedal.setVelocity( new Velocity( 1,1));
 		pedal.setPosition( new Point( 200, 200));
 	}
 

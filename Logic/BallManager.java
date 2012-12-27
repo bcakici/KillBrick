@@ -9,6 +9,9 @@ import Data.Velocity;
 /* it controls ball objects GameEngine*/
 public class BallManager {
 	private ArrayList<Ball> balls;
+	public BallManager(){
+		balls = new ArrayList<Ball>();
+	}
 
 	// before the game start this method is called to attach the first ball to
 	// pedal
@@ -23,9 +26,9 @@ public class BallManager {
 	}
 
 	// while the ball is moving this method updates the ball position.
-	public void redrawBalls() {
-		for (Ball b : balls) {
-			b.redraw();
+	public void moveBalls( double elapsedTime) {
+		for (Ball ball : balls) {
+			ball.move( elapsedTime);
 		}
 	}
 

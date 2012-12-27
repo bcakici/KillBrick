@@ -23,7 +23,7 @@ public class GameLooper extends Timer {
 	public void start() {
 		start = System.currentTimeMillis();
 		lastTime = start;
-		this.schedule(task, 10);
+		this.scheduleAtFixedRate(task, 10, 10);
 	}
 
 	// this method stops the game.
@@ -35,8 +35,8 @@ public class GameLooper extends Timer {
 	// refreshes
 	public void loop() {
 
-		gameEngine.elapse(System.currentTimeMillis() - lastTime);
+		gameEngine.elapse((System.currentTimeMillis() - lastTime)/20);
 		lastTime = System.currentTimeMillis();
-		this.schedule(task, 10);
+		System.out.println("asd");
 	}
 }

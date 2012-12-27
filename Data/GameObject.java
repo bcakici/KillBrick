@@ -24,6 +24,16 @@ public abstract class GameObject {
 		view = new JLabel( image);
 		width = image.getIconWidth();
 		height = image.getIconHeight();
+		position = new Point(0,0);
+		velocity = new Velocity(0,0);
+	}
+	public GameObject(String imageFile, double x, double y) {
+		ImageIcon image = new ImageIcon( imageFile);
+		view = new JLabel( image);
+		width = image.getIconWidth();
+		height = image.getIconHeight();
+		position = new Point(x,y);
+		velocity = new Velocity(0,0);
 	}
 	public JLabel getView(){
 		return view;
@@ -72,7 +82,15 @@ public abstract class GameObject {
 	 * redraws game object this method is implemented by every gameobject itself
 	 * if it is a ball draws ball, if it is brick draws brick and so on
 	 */
-
+	public void move( double elapsedTime){
+		double x = getPosition().getX();
+		double y = getPosition().getY();
+		double vx = getVelocity().getVelocityX();
+		double vy = getVelocity().getVelocityY();
+		double dx = vx * elapsedTime;
+		double dy = vy * elapsedTime;
+		setPosition( new Point( x + dx, y + dy));
+	}
 	public Velocity getVelocity() {
 		return this.velocity;
 	}

@@ -4,8 +4,8 @@ package Data;
 public class StrongBrick extends Brick {
 	int health = 2;
 
-	public StrongBrick() {
-		super("images/brick_strong.png");
+	public StrongBrick( double x, double y) {
+		super("images/brick_strong.png", x, y);
 		// TODO Auto-generated constructor stub
 	}
 }

@@ -16,6 +16,9 @@ public abstract class Brick extends GameObject {
 	public Brick(String imagefile) {
 		super(imagefile);
 	}
+	public Brick(String imagefile, double x, double y) {
+		super(imagefile, x, y);
+	}
 
 	// set if the brick is hit or not
 	public void setExploded(boolean exploded) {

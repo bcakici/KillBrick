@@ -13,5 +13,8 @@ public class NormalBrick extends Brick {
 	public NormalBrick() {
 		super("images/brick_normal.png");
 	}
+	public NormalBrick( double x, double y) {
+		super("images/brick_normal.png", x, y);
+	}
 
 }

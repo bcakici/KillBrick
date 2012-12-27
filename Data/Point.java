@@ -1,7 +1,7 @@
 package Data;
 
 // it keeps cordinate of point x,y in any position.
-public class Point extends java.awt.Point {
+public class Point {
 	// it gets x cordinate
 	double x, y;
 
