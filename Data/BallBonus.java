@@ -12,13 +12,13 @@ public class BallBonus extends Bonus {
 		super("images/bonus.png");
 	}
 
-	private int ballCount;
+	private static int ballsToBeAdded = 2;
 
 
 	@Override
 	public void gainBonus(GameEngine e, Pedal p, BallManager b,
 			HighScoreManager h) {
-		
+		e.addBalls( ballsToBeAdded);
 
 	}
 

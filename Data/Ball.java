@@ -8,8 +8,12 @@ public class Ball extends GameObject {
 		super("images/ball.png");
 		// TODO Auto-generated constructor stub
 	}
-	public void setDefaultVelocity(){
-		setVelocity( new Velocity(3,3));
+
+	public void setDefaultVelocity() {
+		double randomAngle = Math.random() * 15 + 45;
+		double magnitude = 9.0;
+		setVelocity(new Velocity(magnitude * Math.cos(randomAngle), magnitude
+				* Math.sin(randomAngle)));
 	}
 
 	// calculate the reflect ball form

@@ -65,12 +65,19 @@ public class GameEngine {
 
 	// it is stop the game.
 	public void stopGame() {
+		gameLooper.stop();
 	}
 
 	// Elapse method calls redrawObject method and calculateCollisions method.
 	public void elapse(double time) {
 		moveObjects( time);
-		calculateCollisions();
+		ballManager.handleFalls( gameView);
+		if( !ballManager.hasBalls()){
+			stopGame();
+		}
+		else{
+			calculateCollisions();
+		}
 	}
 	private void moveObjects( double elapsedTime){
 		ballManager.moveBalls( elapsedTime);
@@ -86,7 +93,7 @@ public class GameEngine {
 
 	public Bonus createRandomBonus( Brick brick) {
 		Bonus bonus;
-		switch ((int) (Math.random() * 14)) {
+		switch (0){//(int) (Math.random() * 14)) {
 		case 0:
 			bonus = new BallBonus();
 			break;
@@ -119,8 +126,11 @@ public class GameEngine {
 	 * calculated such as between Ball-Brick, Ball - Pedal, Ball - Wall, Bonus -
 	 * Pedal.
 	 */
+	public void addBalls( int count){
+		ballManager.addBalls(count, gameView);
+	}
 	private void calculateCollisions() {
-		makeBallCollisions();
+		ballManager.makeBallCollisions(this, bricks, walls, getPedal1(), getPedal2());
 		makeBonusCollisions();
 	}
 	public void stopPedalsIfCollide(){
@@ -157,30 +167,12 @@ public class GameEngine {
 			}
 		}
 	}
-	private void handleCollision( Brick brick){
+	void handleCollision( Brick brick){
 		brick.decreaseHealth();
 		if (brick.isExploded()) {
 			bricks.remove(brick);
 			gameView.remove( brick.getView());
 			gameView.repaint();
-		}
-	}
-	private void makeBallCollisions() {
-		ArrayList<Ball> balls = ballManager.getBalls();
-		for (Ball ball : balls) {
-			ball.reflectIfCollision(pedal);
-			for (Brick brick : bricks) {
-				if (ball.reflectIfCollision(brick)) {
-					handleCollision( brick);
-					break;
-				}
-			}
-			for (Wall wall : walls) {
-				ball.reflectIfCollision(wall);
-			}
-			if (isMultiplayer) {
-				ball.reflectIfCollision(pedal2);
-			}
 		}
 	}
 
