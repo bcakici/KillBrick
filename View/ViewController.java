@@ -142,13 +142,10 @@ public class ViewController extends javax.swing.JFrame{
         setContentPane(mainMenu);
         mainMenu.setVisible(true);
     }
-    
-    public void refresh() {
-        
-    }
 
     //starts multiplayer game
     public void startMultiplayerGame(boolean mute) {
+        hideAllPanels();
         showGameView();
         gameView.createGameEngine(true, mute);
     }

@@ -25,6 +25,27 @@ public class Pedal extends GameObject {
 	public void moveRight() {
 		setVelocity( new Velocity( 5, 0));
 	}
+	public void stopIfCollide( GameObject o){
+		Point collision = getCollision(o);
+		if( collision != null){
+			Point position = getPosition();
+			double x = position.getX();
+			double y = position.getY();
+			Velocity velocity = getVelocity();
+			double vx = velocity.getVelocityX();
+			double vy = velocity.getVelocityY();
+			
+			if (vx > 0 && x - collision.getX() == width/2) {
+				stop();
+			} else if (vx < 0 && collision.getX() - x == width/2) {
+				stop();
+			} else if (vy > 0 && y - collision.getY() == height/2) {
+				stop();
+			} else if (vy < 0 && collision.getY() - y == height/2) {
+				stop();
+			} 
+		}
+	}
 	/*
 	 * this method redraws game object this method is implemented by every
 	 * gameobject itself if it is a ball draws ball, if it is brick draws brick

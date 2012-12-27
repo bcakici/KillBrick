@@ -23,9 +23,8 @@ public class Ball extends GameObject {
 		if (Math.abs(x1 - collision.getX()) == r) {
 			vx2 = -vx1;
 		} else if (Math.abs(y1 - collision.getY()) == r) {
-			vy2 = -y1;
+			vy2 = -vy1;
 		}
-
 		setVelocity(new Velocity(vx2, vy2));
 	}
 

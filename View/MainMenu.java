@@ -17,7 +17,11 @@ public class MainMenu extends javax.swing.JPanel {
     }
     
     public void startGame(boolean isMultiplayer) {
-        ViewController.getInstance().startSingleplayerGame(false);
+    	if( isMultiplayer){
+    		ViewController.getInstance().startMultiplayerGame(false);
+    	} else{
+    		ViewController.getInstance().startSingleplayerGame(false);
+    	}
     }
     
     /**
@@ -118,7 +122,7 @@ public class MainMenu extends javax.swing.JPanel {
     }                                     
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {
-        startGame(false);
+        startGame(true);
     }
     
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {

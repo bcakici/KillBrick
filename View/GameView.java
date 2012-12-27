@@ -17,6 +17,7 @@ public class GameView extends JPanel {
 
 		if (isMultiplayer == true) {
 			gameEngine = new Logic.GameEngine(this, true);
+			startGame();
 		} else {
 			gameEngine = new Logic.GameEngine(this, false);
 			startGame();

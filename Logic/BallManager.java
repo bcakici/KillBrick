@@ -61,7 +61,7 @@ public class BallManager {
 		Ball ball = new Ball();
 		gv.add( ball.getView());
 		ball.setPosition( new Point( x, y));
-		ball.setVelocity( new Velocity(1,1));
+		ball.setVelocity( new Velocity(3,3));
 		balls.add( ball);
 	}
 }

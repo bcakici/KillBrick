@@ -17,8 +17,9 @@ import javax.swing.JPanel;
 public abstract class GameObject {
 	private Point position;
 	private Velocity velocity;
-	private int height, width;
-	private JLabel view;
+	protected JLabel view;
+	protected double height;
+	protected double width;
 	public GameObject(String imageFile) {
 		ImageIcon image = new ImageIcon( imageFile);
 		view = new JLabel( image);
@@ -41,7 +42,7 @@ public abstract class GameObject {
 	public JLabel getView(){
 		return view;
 	}
-	public int getHeight() {
+	public double getHeight() {
 		return height;
 	}
 
@@ -49,7 +50,7 @@ public abstract class GameObject {
 		this.height = height;
 	}
 
-	public int getWidth() {
+	public double getWidth() {
 		return width;
 	}
 
@@ -98,20 +99,13 @@ public abstract class GameObject {
 		double vx = getVelocity().getVelocityX();
 		double vy = getVelocity().getVelocityY();  
 
-		if( vx > 0 && isInbound(right)) 
-		{
+		if (vx > 0 && o.isInbound(right)) {
 			return right;
-		}
-		else if( vx < 0 && isInbound(left))  
-		{
+		} else if (vx < 0 && o.isInbound(left)) {
 			return left;
-		}
-		else if( vy > 0 && isInbound(top)) 
-		{
+		} else if (vy > 0 && o.isInbound(top)) {
 			return top;
-		}
-		else if( vy < 0 && isInbound(down)) 
-		{
+		} else if (vy < 0 && o.isInbound(down)) {
 			return down;
 		}
 		return null;
@@ -125,7 +119,8 @@ public abstract class GameObject {
 	// sets and updates the position of objects
 	public void setPosition(Point p) {
 		this.position = p;
-		view.setBounds((int)p.getX()-width/2, (int)p.getY()-height/2, width, height);
+		view.setBounds((int) (p.getX() - width / 2),
+				(int) (p.getY() - height / 2), (int) width, (int) height);
 		// this.setLocation( p);
 	}
 

@@ -64,7 +64,7 @@ public class GameEngine {
 		gameLooper.start();
 	}
 
-	// in multiplayer game if two padals is collide.
+	// in multiplayer game return if two pedals is collide.
 	public boolean isPedalsCollide() {
 		if (isMultiplayer) {
 			return (pedal.getCollision(pedal2) != null);
@@ -90,6 +90,7 @@ public class GameEngine {
 		for (Bonus bonus : bonuses) {
 			bonus.move( elapsedTime);
 		}
+		stopPedalsIfCollide();
 		pedal.move( elapsedTime);
 		if( isMultiplayer){
 			pedal2.move( elapsedTime);
@@ -133,6 +134,19 @@ public class GameEngine {
 		calculateBallCollisions();
 		calculateBonusCollisions();
 	}
+	private void stopPedalsIfCollide(){
+		stopIfCollideWithWalls(pedal);
+		if( isMultiplayer){
+			pedal.stopIfCollide( pedal2);
+			pedal2.stopIfCollide( pedal);
+			stopIfCollideWithWalls(pedal2);
+		}
+	}
+	private void stopIfCollideWithWalls( Pedal p){
+		for( Wall wall: walls){
+			pedal.stopIfCollide( wall);
+		}
+	}
 
 	private void calculateBonusCollisions() {
 		for (Bonus bonus : bonuses) {
@@ -152,24 +166,32 @@ public class GameEngine {
 		ArrayList<Ball> balls = ballManager.getBalls();
 		for (Ball ball : balls) {
 			Point collision;
-			for (Brick brick : bricks) {
-				collision = ball.getCollision(brick);
-				if (collision != null) {
-					brick.decreaseHealth();
-					if (brick.isExploded()) {
-						Bonus b = brick.getBonus();
-						if (b != null) {
-							b.setVisibleAndFalling();
+
+			collision = ball.getCollision(pedal);
+			if( collision == null){
+				for (Brick brick : bricks) {
+					collision = ball.getCollision(brick);
+					if (collision != null) {
+						brick.decreaseHealth();
+						if (brick.isExploded()) {
+							Bonus b = brick.getBonus();
+							if (b != null) {
+								b.setVisibleAndFalling();
+							}
 						}
+						break;
 					}
-					break;
 				}
 			}
-			for (Wall wall : walls) {
-				collision = ball.getCollision(wall);
+			if( collision == null){
+				for (Wall wall : walls) {
+					collision = ball.getCollision(wall);
+					if( collision != null){
+						break;
+					}
+				}
 			}
-			collision = ball.getCollision(pedal);
-			if (isMultiplayer) {
+			if (collision == null && isMultiplayer) {
 				collision = ball.getCollision(pedal2);
 			}
 			if (collision != null) {
@@ -178,23 +200,49 @@ public class GameEngine {
 		}
 	}
 
-	// updates the changes to the screen.
-	public void redrawObjects() {
-
-	}
-
 	// Creates levels with intializing brick objects.
 	public void createLevel(int no) {
 		//NormalBrick b = new NormalBrick();
 		//gameView.add(new JLabel(b));
 		//StrongBrick s = new StrongBrick();
 		//gameView.add(new JLabel(s));
-		pedal = new Pedal();
-		gameView.add(pedal.getView());
 		ballManager.addBall( 0, 0, gameView);
-		pedal.setPosition( new Point( 200, 200));
+		
+		addPedals();
+		addWalls();
 	}
-
+	private void addPedals(){
+		pedal = new Pedal();
+		gameView.add( pedal.getView());
+		pedal.setPosition( new Point( 200, 500));
+		if( isMultiplayer){
+			pedal2 = new Pedal();
+			gameView.add( pedal2.getView());
+			pedal2.setPosition( new Point( 600, 500));
+		}
+	}
+	private void addWalls(){
+		Wall left = new Wall(-10, 0, 0, 600);
+		Wall top = new Wall(0, 800, -10, 0);
+		Wall right = new Wall(800, 810, 0, 600);
+		walls.add( left);
+		walls.add( top);
+		walls.add( right);
+	}
+	private Brick addBrick( double x, double y, boolean isStrong){
+		if( isStrong){
+			StrongBrick brick = new StrongBrick( x, y);
+			gameView.add( brick.getView());
+			bricks.add( brick);
+			return brick;
+		}
+		else{
+			NormalBrick brick = new NormalBrick( x, y);
+			gameView.add( brick.getView());
+			bricks.add( brick);
+			return brick;
+		}
+	}
 	public void increasePlayersHealth() {
 		playersHealth++;
 	}
