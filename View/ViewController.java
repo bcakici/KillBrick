@@ -1,249 +1,252 @@
+
 /* holds and controls GameView, HighScoreView, HelpView, AboutUsView and MainMenu2.
- * this class is designed like singleton pattern because there must be only one instance
- * of it */
+* this class is designed like singleton pattern because there must be only one instance
+* of it */
 package View;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- * 
+ *
  * @author user
  */
-public class ViewController extends javax.swing.JFrame {
-
-	// Properties of the frame
-	private boolean mute;
-	private String playerName;
-	private GameView gameView;
-	private HighScoreView highScoreView;
-	private HelpView helpView;
-	private AboutUsView aboutUsView;
-	private MainMenu mainMenu;
-	private static ViewController viewController;
-	private JOptionPane showEnterNamePanel;
-
-	/**
-	 * Creates new form ViewController
-	 */
-
+public class ViewController extends javax.swing.JFrame{
+    
+    // Properties of the frame
+    private boolean mute;
+    private String playerName;
+    private GameView gameView;
+    private HighScoreView highScoreView;
+    private HelpView helpView;
+    private AboutUsView aboutUsView;
+    private MainMenu mainMenu;
+    private static ViewController viewController;
+    private JOptionPane showEnterNamePanel;
+    
+    /**
+     * Creates new form ViewController
+     */
+    
 	// creates view objects
-	// gets the instance of viewcontroller if there is no instance create new
-	// viewcontroller
-	public static ViewController getInstance() {
-		if (viewController == null) {
-			viewController = new ViewController();
-		}
-		return viewController;
-	}
+	// gets the instance of viewcontroller if there is no instance create new viewcontroller
+    public static ViewController getInstance(){
+        if(viewController == null) {
+            viewController = new ViewController();
+        }
+        return viewController;    
+    }
+    
+    private ViewController() {
+        initComponents();
+        this.setTitle("Kill Brick");
+        
+        gameView = new GameView();
+        this.add(gameView);
+        
+        try {
+            highScoreView = new HighScoreView();
+        } catch (IOException ex) {
+            Logger.getLogger(ViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.add(highScoreView);
+        
+        helpView = new HelpView();
+        this.add(helpView);
+        
+        aboutUsView = new AboutUsView();
+        this.add(aboutUsView);
+        
+        mainMenu = new MainMenu();
+        this.add(mainMenu);
+        this.showMainMenu();
+    }
+    
+    public void hideAllPanels() {
+        if(mainMenu.isVisible() == true) {
+            mainMenu.setVisible(false);
+        }
+        if(aboutUsView.isVisible() == true) {
+            aboutUsView.setVisible(false);
+        }
+        if(helpView.isVisible() == true) {
+            helpView.setVisible(false);
+        }
+        if(highScoreView.isVisible() == true) {
+            highScoreView.setVisible(false);
+        }
+        if(gameView.isVisible() == true) {
+            gameView.setVisible(false);
+        }
+    }
+    
+    // displays main menu
+    public void showMainMenu() {
+        hideAllPanels();
+        setContentPane(mainMenu);
+        mainMenu.setVisible(true);
+    }
+    // it shows high score list
+    public void showHighScoreView() {
+        hideAllPanels();
+        setContentPane(highScoreView);
+        highScoreView.setVisible(true);
+    }
+    //gives information about how to play game.
+    public void showHelpView() {
+        setContentPane(helpView);
+        helpView.setVisible(true);
+    }
+    // gives information about developers
+    public void showAboutUsView() {
+        setContentPane(aboutUsView);
+        aboutUsView.setVisible(true);
+    }
+    // shows the panel which users can play on
+    public void showGameView() {
+        setContentPane(gameView);
+        gameView.setVisible(true);
+    }
+    
+    // set the mute option.
+    public void setMute(boolean mute) {
+        this.mute = mute;
+    }
+    // get the mute option.
+    public boolean getMute() {
+        return mute;
+    }
+    
+    // at the end of the game if the player is in top ten the name of the user is displayed on this screen
+    public void showEnterNamePanel() {
+        do{
+            playerName = showEnterNamePanel.showInputDialog("Enter your name : ");
+        }while (playerName == null);
+    }
 
-	private ViewController() {
-		initComponents();
-		this.setTitle("Kill Brick");
+    // get the name from label.
+    public String getName() {
+        return playerName;   
+    }
 
-		gameView = new GameView();
-		this.add(gameView);
+    // set's player's name
+    public void setName(String name) {
+        playerName = name;
+    }
+    
+    // it close the game.
+    public void finishGame() { 
+        gameView.setVisible(false);
+        setContentPane(mainMenu);
+        mainMenu.setVisible(true);
+    }
+    
+    public void refresh() {
+        
+    }
 
-		highScoreView = new HighScoreView();
-		this.add(highScoreView);
+    //starts multiplayer game
+    public void startMultiplayerGame(boolean mute) {
+        showGameView();
+        gameView.createGameEngine(true, mute);
+    }
 
-		helpView = new HelpView();
-		this.add(helpView);
+    //starts single player game
+    public void startSingleplayerGame(boolean mute) {
+        hideAllPanels();
+        showGameView();
+        gameView.createGameEngine(false, mute);
+    }
 
-		aboutUsView = new AboutUsView();
-		this.add(aboutUsView);
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    private void initComponents() {
 
-		mainMenu = new MainMenu();
-		this.add(mainMenu);
-		this.showMainMenu();
-	}
+        upperPanel = new javax.swing.JPanel();
+        middlePanel = new javax.swing.JPanel();
 
-	public void hideAllPanels() {
-		if (mainMenu.isVisible() == true) {
-			mainMenu.setVisible(false);
-		}
-		if (aboutUsView.isVisible() == true) {
-			aboutUsView.setVisible(false);
-		}
-		if (helpView.isVisible() == true) {
-			helpView.setVisible(false);
-		}
-		if (highScoreView.isVisible() == true) {
-			highScoreView.setVisible(false);
-		}
-	}
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
-	// displays main menu
-	public void showMainMenu() {
-		setContentPane(mainMenu);
-		mainMenu.setVisible(true);
-	}
+        javax.swing.GroupLayout upperPanelLayout = new javax.swing.GroupLayout(upperPanel);
+        upperPanel.setLayout(upperPanelLayout);
+        upperPanelLayout.setHorizontalGroup(
+            upperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 632, Short.MAX_VALUE)
+        );
+        upperPanelLayout.setVerticalGroup(
+            upperPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
-	// it shows high score list
-	public void showHighScoreView() {
-		setContentPane(highScoreView);
-		highScoreView.setVisible(true);
-	}
+        getContentPane().add(upperPanel, java.awt.BorderLayout.PAGE_START);
 
-	// gives information about how to play game.
-	public void showHelpView() {
-		setContentPane(helpView);
-		helpView.setVisible(true);
-	}
+        javax.swing.GroupLayout middlePanelLayout = new javax.swing.GroupLayout(middlePanel);
+        middlePanel.setLayout(middlePanelLayout);
+        middlePanelLayout.setHorizontalGroup(
+            middlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 632, Short.MAX_VALUE)
+        );
+        middlePanelLayout.setVerticalGroup(
+            middlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 310, Short.MAX_VALUE)
+        );
 
-	// gives information about developers
-	public void showAboutUsView() {
-		setContentPane(aboutUsView);
-		aboutUsView.setVisible(true);
-	}
+        getContentPane().add(middlePanel, java.awt.BorderLayout.CENTER);
 
-	// set the mute option.
-	public void setMute(boolean mute) {
-		this.mute = mute;
-	}
+        pack();
+    }// </editor-fold>
 
-	// get the mute option.
-	public boolean getMute() {
-		return mute;
-	}
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /*
+         * Set the Nimbus look and feel
+         */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /*
+         * If Nimbus (introduced in Java SE 6) is not available, stay with the
+         * default look and feel. For details see
+         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ViewController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ViewController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ViewController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ViewController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-	// at the end of the game if the player is in top ten the name of the user
-	// is displayed on this screen
-	public void showEnterNamePanel() {
-		do {
-			playerName = showEnterNamePanel.showInputDialog("Enter your name : ");
-		} while (playerName == null);
-	}
+        /*
+         * Create and display the form
+         */
+        java.awt.EventQueue.invokeLater(new Runnable() {
 
-	// get the name from label.
-	public String getName() {
-		return playerName;
-	}
-
-	// set's player's name
-	public void setName(String name) {
-		playerName = name;
-	}
-
-	// it close the game.
-	public void finishGame() {
-		gameView.setVisible(false);
-		setContentPane(mainMenu);
-		mainMenu.setVisible(true);
-	}
-
-	public void refresh() {
-
-	}
-
-	// starts multiplayer game
-	public void startMultiplayerGame(boolean mute) {
-		setContentPane(gameView);
-		gameView.setVisible(true);
-		gameView.createGameEngine(true, mute);
-	}
-
-	// starts single player game
-	public void startSingleplayerGame(boolean mute) {
-		hideAllPanels();
-		setContentPane(gameView);
-		gameView.setVisible(true);
-		gameView.createGameEngine(false, mute);
-	}
-
-	/**
-	 * This method is called from within the constructor to initialize the form.
-	 * WARNING: Do NOT modify this code. The content of this method is always
-	 * regenerated by the Form Editor.
-	 */
-	@SuppressWarnings("unchecked")
-	// <editor-fold defaultstate="collapsed" desc="Generated Code">
-	private void initComponents() {
-
-		upperPanel = new javax.swing.JPanel();
-		middlePanel = new javax.swing.JPanel();
-
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setPreferredSize(new java.awt.Dimension(800, 600));
-
-		javax.swing.GroupLayout upperPanelLayout = new javax.swing.GroupLayout(
-				upperPanel);
-		upperPanel.setLayout(upperPanelLayout);
-		upperPanelLayout.setHorizontalGroup(upperPanelLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 632, Short.MAX_VALUE));
-		upperPanelLayout.setVerticalGroup(upperPanelLayout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 100,
-				Short.MAX_VALUE));
-
-		getContentPane().add(upperPanel, java.awt.BorderLayout.PAGE_START);
-
-		javax.swing.GroupLayout middlePanelLayout = new javax.swing.GroupLayout(
-				middlePanel);
-		middlePanel.setLayout(middlePanelLayout);
-		middlePanelLayout.setHorizontalGroup(middlePanelLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 632, Short.MAX_VALUE));
-		middlePanelLayout.setVerticalGroup(middlePanelLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 310, Short.MAX_VALUE));
-
-		getContentPane().add(middlePanel, java.awt.BorderLayout.CENTER);
-
-		pack();
-	}// </editor-fold>
-
-	/**
-	 * @param args
-	 *            the command line arguments
-	 */
-	public static void main(String args[]) {
-		/*
-		 * Set the Nimbus look and feel
-		 */
-		// <editor-fold defaultstate="collapsed"
-		// desc=" Look and feel setting code (optional) ">
-		/*
-		 * If Nimbus (introduced in Java SE 6) is not available, stay with the
-		 * default look and feel. For details see
-		 * http://download.oracle.com/javase
-		 * /tutorial/uiswing/lookandfeel/plaf.html
-		 */
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
-					.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(ViewController.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(ViewController.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(ViewController.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(ViewController.class.getName())
-					.log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		// </editor-fold>
-
-		/*
-		 * Create and display the form
-		 */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-
-			public void run() {
-				ViewController.getInstance().setVisible(true);
-			}
-		});
-	}
-
-	// Variables declaration - do not modify
-	private javax.swing.JPanel middlePanel;
-	private javax.swing.JPanel upperPanel;
-	// End of variables declaration
+            public void run() {
+                ViewController.getInstance().setVisible(true);
+            }
+        });
+    }
+    // Variables declaration - do not modify
+    private javax.swing.JPanel middlePanel;
+    private javax.swing.JPanel upperPanel;
+    // End of variables declaration
 }

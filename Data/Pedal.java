@@ -17,19 +17,13 @@ public class Pedal extends GameObject {
 
 	// moves the pedal left.
 	public void moveLeft() {
-		Point p = getPosition();
-		if (p.getX() > 0) {
-			p.setX(p.getX() - 1);
-		}
+		setVelocity( new Velocity( -5, 0));
 	}
 
 	// moves the pedal right.
 
 	public void moveRight() {
-		Point p = getPosition();
-		if (p.getX() < 800) {
-			p.setX(p.getX() - 1);
-		}
+		setVelocity( new Velocity( 5, 0));
 	}
 	/*
 	 * this method redraws game object this method is implemented by every

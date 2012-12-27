@@ -19,6 +19,7 @@ import Data.StrongBrick;
 import Data.Velocity;
 import Data.Wall;
 import View.GameView;
+import View.ViewController;
 
 /* Game engine holds other logic classes maintain game objects,
  it detects collisions types and redraw objects. */
@@ -55,6 +56,9 @@ public class GameEngine {
 		gameView = gv;
 
 		gameView.addKeyListener(keyboardListener);
+		gameView.setFocusable(true);
+		gameView.requestFocusInWindow();
+		
 		this.isMultiplayer = isMultiplayer;
 		
 		gameLooper.start();
@@ -187,6 +191,9 @@ public class GameEngine {
 		//gameView.add(new JLabel(s));
 		pedal = new Pedal();
 		gameView.add(pedal.getView());
+		Ball ball = new Ball();
+		gameView.add( ball.getView());
+		ball.setPosition( new Point( 400, 400));
 		pedal.setPosition( new Point( 200, 200));
 	}
 

@@ -1,124 +1,87 @@
-package Data;
 
+package Data;
 import Logic.*;
 //has two arrays which keep names and high scores respectively.
 import java.io.*;
 import java.util.ArrayList;
 
 public class HighScoreList {
+    
+    private String path = "HighScores.txt";
+    private ArrayList<Integer> pointsList;
+    private ArrayList<String> namesList;
+    //takes the users name and high score and writes to arrays.
+    
+    public HighScoreList() {
+        pointsList = new ArrayList<Integer>();
+        namesList = new ArrayList<String>();
+    }
 
-	private ArrayList<Integer> highScores;
-	private ArrayList<String> names;
+    public void addScore(int score, String name, int position) throws IOException {
+        
+        pointsList = getHighPoints();
+        namesList = getHighScoreNames();
+        FileWriter fileW = new FileWriter(path,false);
+        BufferedWriter writer = new BufferedWriter(fileW);
+        
+        int i = 0;
+        while(i != position) {       
+            writer.write(namesList.get(i) + " *" + pointsList.get(i));
+            writer.newLine();
+            i++;
+        }
+        writer.write(name + " *" + score);
+        writer.newLine();
+        while (i != pointsList.size()) {
+            writer.write(namesList.get(i) + " *" + pointsList.get(i));
+            writer.newLine();
+            i ++;
+        }
+        writer.close(); 
+    }
+    
+    // get the highscores from array.
+    public ArrayList<Integer> getHighPoints() throws IOException{
+        if(pointsList.isEmpty() == false) {
+            return pointsList;
+        }
+        
+        FileReader file = new FileReader(path);
+        BufferedReader reader = new BufferedReader(file);
+        String line;
+        while((line = reader.readLine()) != null) {
 
-	// takes the users name and high score and writes to arrays.
-
-	public void addScore(int score, String name) {
-		boolean isThere = false;
-		try {
-			// Open the file that is the first
-			// command line parameter
-			FileInputStream fstream = new FileInputStream("High Scores.txt");
-			// Get the object of DataInputStream
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String strLine;
-			// Read File Line By Line
-			while ((strLine = br.readLine()) != null) {
-				isThere = true;
-				String[] arr = strLine.split(", ");
-				int sc = Integer.parseInt(arr[0]);
-				String nm = arr[1];
-
-				if (Integer.parseInt(strLine.split(" ")[0]) > score) {
-					this.highScores.add(sc);
-					this.names.add(nm);
-				} else {
-					this.highScores.add(score);
-					this.names.add(name);
-				}
-			}
-			// Close the input stream
-			in.close();
-		} catch (Exception e) {// Catch exception if any
-			System.err.println("Error: " + e.getMessage());
-		}
-		if (!isThere) {
-			this.highScores.add(score);
-			this.names.add(name);
-
-		}
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(
-					"High Scores.txt"));
-			for (int i = 0; i < this.highScores.size(); i++) {
-				out.write(this.highScores.get(i) + ", " + this.names.get(i));
-				out.newLine();
-			}
-			out.close();
-		} catch (IOException e) {
-		}
-	}
-
-	// get the highscores from array.
-
-	public ArrayList<Integer> getHighScores() {
-		if (this.highScores.size() != 0) {
-			return this.highScores;
-		}
-		boolean isThere = false;
-		try {
-			// Open the file that is the first
-			// command line parameter
-			FileInputStream fstream = new FileInputStream("High Scores.txt");
-			// Get the object of DataInputStream
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String strLine;
-			// Read File Line By Line
-			while ((strLine = br.readLine()) != null) {
-				isThere = true;
-				String[] arr = strLine.split(", ");
-				this.highScores.add(Integer.parseInt(strLine.split(", ")[0]));
-			}
-			// Close the input stream
-			in.close();
-		} catch (Exception e) {// Catch exception if any
-			System.err.println("Error: " + e.getMessage());
-		}
-		if (!isThere)
-			return null;
-		return this.highScores;
-	}
-
-	// get the highscores name from array.
-
-	public ArrayList<String> getHighScoreNames() {
-		if (this.names.size() != 0) {
-			return this.names;
-		}
-		boolean isThere = false;
-		try {
-			// Open the file that is the first
-			// command line parameter
-			FileInputStream fstream = new FileInputStream("High Scores.txt");
-			// Get the object of DataInputStream
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String strLine;
-			// Read File Line By Line
-			while ((strLine = br.readLine()) != null) {
-				isThere = true;
-				String[] arr = strLine.split(", ");
-				this.names.add(strLine.split(", ")[1]);
-			}
-			// Close the input stream
-			in.close();
-		} catch (Exception e) {// Catch exception if any
-			System.err.println("Error: " + e.getMessage());
-		}
-		if (!isThere)
-			return null;
-		return this.names;
-	}
+            // In the .txt file, the scores are recorded with '-'. Example : Utku - 23. We should omit the inception of the string.
+            int index = line.indexOf('*');
+            line = line.substring(index +1);
+            line.trim(); // We need only numbers.
+            int sc = Integer.parseInt(line);
+            pointsList.add(sc);
+        }
+        reader.close();
+        return pointsList;
+    }
+    
+    // get the highscores name from array.
+    public ArrayList<String> getHighScoreNames() throws IOException {
+        
+        if(namesList.isEmpty() == false) {
+            return namesList;
+        }
+        
+        FileReader file = new FileReader(path);
+        BufferedReader reader = new BufferedReader(file);
+        String line;
+        while((line = reader.readLine()) != null) {
+            // In the .txt file, the scores are recorded with '-'. Example : Utku *23. We should omit the rest of the string.
+            int index = line.indexOf('*');
+            if (index > 0) {
+                line = line.substring(0, index - 1);
+                namesList.add(line);
+            }
+        }
+        reader.close();
+        return namesList;
+    }
 
 }

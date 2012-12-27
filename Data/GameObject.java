@@ -35,6 +35,9 @@ public abstract class GameObject {
 		position = new Point(x,y);
 		velocity = new Velocity(0,0);
 	}
+	public void stop(){
+		setVelocity( new Velocity( 0,0));
+	}
 	public JLabel getView(){
 		return view;
 	}

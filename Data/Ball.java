@@ -3,8 +3,8 @@ package Data;
 //this class corresponds to ball in game
 public class Ball extends GameObject {
 
-	public Ball(String imageFile) {
-		super(imageFile);
+	public Ball() {
+		super("images/ball.png");
 		// TODO Auto-generated constructor stub
 	}
 
