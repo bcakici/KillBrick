@@ -122,17 +122,19 @@ public class ViewController extends javax.swing.JFrame{
     // at the end of the game if the player is in top ten the name of the user is displayed on this screen
     public void showEnterNamePanel() {
         do{
-            playerName = showEnterNamePanel.showInputDialog("Enter your name : ");
+            playerName = JOptionPane.showInputDialog("Enter your name : ");
         }while (playerName == null);
     }
 
     // get the name from label.
-    public String getName() {
+    @Override
+	public String getName() {
         return playerName;   
     }
 
     // set's player's name
-    public void setName(String name) {
+    @Override
+	public void setName(String name) {
         playerName = name;
     }
     
@@ -237,7 +239,8 @@ public class ViewController extends javax.swing.JFrame{
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
 
-            public void run() {
+            @Override
+			public void run() {
                 ViewController.getInstance().setVisible(true);
             }
         });

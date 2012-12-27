@@ -3,8 +3,6 @@ package Logic;
 import java.util.ArrayList;
 
 import View.GameView;
-import View.ViewController;
-
 import Data.Ball;
 import Data.Brick;
 import Data.Pedal;
@@ -91,7 +89,7 @@ public class BallManager {
 	}
 
 	public void removeBalls(){
-		balls = new ArrayList<Ball>();
+		balls.clear();
 		
 	}
 

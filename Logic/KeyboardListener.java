@@ -2,7 +2,6 @@ package Logic;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 /* listens keyboard inputs and returns last keyboard input */
 public class KeyboardListener extends KeyAdapter {

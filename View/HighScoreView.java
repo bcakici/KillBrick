@@ -52,7 +52,7 @@ public class HighScoreView extends javax.swing.JPanel {
         int t = list.getHighScoreNames().size();
         while(i != t){
             String name = list.getHighScoreNames().get(i);
-            int score = list.getHighPoints().get(i);
+            int score = list.getHighScorePoints().get(i);
             String labelStr = labelList.get(i).getText();
             labelStr = labelStr.substring(0, 3);
             labelStr = labelStr + name + " - " + score;
@@ -150,12 +150,14 @@ public class HighScoreView extends javax.swing.JPanel {
         backButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         backButton.setText("Back To Main Menu");
         backButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            @Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
                 backButtonMouseClicked(evt);
             }
         });
         backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });

@@ -2,9 +2,6 @@ package Logic;
 
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
-
-import Data.Ball;
 import Data.BallBonus;
 import Data.Bonus;
 import Data.Brick;
@@ -16,10 +13,8 @@ import Data.Point;
 import Data.ScoreBonus;
 import Data.SpeedBonus;
 import Data.StrongBrick;
-import Data.Velocity;
 import Data.Wall;
 import View.GameView;
-import View.ViewController;
 
 /* Game engine holds other logic classes maintain game objects,
  it detects collisions types and redraw objects. */
@@ -86,8 +81,11 @@ public class GameEngine {
 		if( !ballManager.hasBalls()){
 			decreaseLives();
 		}
+		else if( bricks.size() == 0){
+				completeLevel();
+		}
 		else{
-			calculateCollisions();
+			makeCollisions();
 		}
 	}
 	private void moveObjects( double elapsedTime){
@@ -131,16 +129,16 @@ public class GameEngine {
 		}
 		return bonus;
 	}
+	public void addBalls( int count){
+		ballManager.addBalls(count, gameView);
+	}
 	/*
 	 * calculates the type of collision and according to result calls other
 	 * methods if necessary. There are four collision types that should be
 	 * calculated such as between Ball-Brick, Ball - Pedal, Ball - Wall, Bonus -
 	 * Pedal.
 	 */
-	public void addBalls( int count){
-		ballManager.addBalls(count, gameView);
-	}
-	private void calculateCollisions() {
+	private void makeCollisions() {
 		ballManager.makeBallCollisions(this, bricks, walls, getPedal1(), getPedal2());
 		makeBonusCollisions();
 	}
@@ -184,9 +182,6 @@ public class GameEngine {
 			bricks.remove(brick);
 			gameView.remove( brick.getView());
 			gameView.repaint();
-			if( bricks.size() == 0){
-				completeLevel();
-			}
 		}
 	}
 

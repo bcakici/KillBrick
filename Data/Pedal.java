@@ -9,19 +9,16 @@ public class Pedal extends GameObject {
 		// TODO Auto-generated constructor stub
 	}
 
-	// declares variable for the distance to travel each time in pixels
-	private int move = 5;
-
-	// declares variables for x and y coordinates
-
-	// constructor that takes in x and y coordinates for pedal
-
 	// moves the pedal left.
 	public void moveLeft() {
 		setVelocity( new Velocity( -5, 0));
 	}
 
 	// moves the pedal right.
+	public void moveRight() {
+		setVelocity( new Velocity( 5, 0));
+	}
+	
 	@Override 
 	public void setPosition(Point p) {
 		super.setPosition(p);
@@ -38,9 +35,6 @@ public class Pedal extends GameObject {
 		attached.setDefaultVelocity();
 		attached = null;
 	}
-	public void moveRight() {
-		setVelocity( new Velocity( 5, 0));
-	}
 	public void stopIfCollide( GameObject o){
 		Point collision = getCollision(o);
 		if( collision != null){
@@ -55,10 +49,9 @@ public class Pedal extends GameObject {
 			} 
 		}
 	}
-	/*
-	 * this method redraws game object this method is implemented by every
-	 * gameobject itself if it is a ball draws ball, if it is brick draws brick
-	 * and so on
-	 */
+
+	public void changeLength(double lengthMultiplier) {
+		
+	}
 
 }

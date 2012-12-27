@@ -9,4 +9,11 @@ public class StrongBrick extends Brick {
 	public StrongBrick( ) {
 		super("images/brick_strong.png", 2);
 	}
+	@Override
+	public void decreaseHealth() {
+		super.decreaseHealth();
+		if( health == 1){
+			setView( "images/brick_normal.png");
+		}
+	}
 }

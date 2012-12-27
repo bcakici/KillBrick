@@ -1,6 +1,5 @@
 
 package Data;
-import Logic.*;
 //has two arrays which keep names and high scores respectively.
 import java.io.*;
 import java.util.ArrayList;
@@ -15,11 +14,19 @@ public class HighScoreList {
     public HighScoreList() {
         pointsList = new ArrayList<Integer>();
         namesList = new ArrayList<String>();
+        File file = new File(path);
+        if(!file.exists()) {
+            try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        }
     }
 
     public void addScore(int score, String name, int position) throws IOException {
         
-        pointsList = getHighPoints();
+        pointsList = getHighScorePoints();
         namesList = getHighScoreNames();
         FileWriter fileW = new FileWriter(path,false);
         BufferedWriter writer = new BufferedWriter(fileW);
@@ -41,7 +48,7 @@ public class HighScoreList {
     }
     
     // get the highscores from array.
-    public ArrayList<Integer> getHighPoints() throws IOException{
+    public ArrayList<Integer> getHighScorePoints() throws IOException{
         if(pointsList.isEmpty() == false) {
             return pointsList;
         }

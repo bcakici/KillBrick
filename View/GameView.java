@@ -1,7 +1,6 @@
 //-	keeps the GameObject
 package View;
 
-import java.awt.*;
 import javax.swing.JPanel;
 
 public class GameView extends JPanel {

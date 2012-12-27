@@ -1,13 +1,9 @@
 package Data;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
-
+import java.net.MalformedURLException;
+import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /*
  * GameObject is an abstract class which is implemented by wall, pedal, ball,
@@ -21,20 +17,32 @@ public abstract class GameObject {
 	protected double height;
 	protected double width;
 	public GameObject(String imageFile) {
-		ImageIcon image = new ImageIcon( imageFile);
-		view = new JLabel( image);
-		width = image.getIconWidth();
-		height = image.getIconHeight();
-		position = new Point(0,0);
-		velocity = new Velocity(0,0);
+		setView( imageFile);
+		setPosition( 0, 0);
+		stop();
 	}
 	public GameObject(String imageFile, double x, double y) {
-		ImageIcon image = new ImageIcon( imageFile);
-		view = new JLabel( image);
+		this( imageFile);
+		setPosition( x, y);
+	}
+	protected void setView(String imageFile){
+		ImageIcon image = null;
+		try {
+			image = new ImageIcon( new URL(getClass().getProtectionDomain().getCodeSource().getLocation(), imageFile));
+		
+		} catch (MalformedURLException e) {
+			System.out.println( "image not found: " + imageFile);
+		}
+
+		if( view == null){
+			view = new JLabel( image);
+		}
+		else{ 
+			view.setIcon(image);
+		}
 		width = image.getIconWidth();
 		height = image.getIconHeight();
-		position = new Point(x,y);
-		velocity = new Velocity(0,0);
+		
 	}
 	public void stop(){
 		setVelocity( new Velocity( 0,0));
@@ -45,23 +53,20 @@ public abstract class GameObject {
 	public double getHeight() {
 		return height;
 	}
-
-	public void setHeight(int height) {
+	protected void setHeight(int height) {
 		this.height = height;
 	}
-
 	public double getWidth() {
 		return width;
 	}
-
-	public void setWidth(int width) {
+	protected void setWidth(int width) {
 		this.width = width;
 	}
 
 	public boolean isInbound( Point p)
 	{
-		double x1 = getPosition().getX();
-		double y1 = getPosition().getY();      
+		double x1 = getX();
+		double y1 = getY();      
 
 		double x2 = p.getX();
 		double y2 = p.getY();
@@ -77,8 +82,8 @@ public abstract class GameObject {
 	// not
 
 	public Point getCollision(GameObject o) {
-		double x = getPosition().getX();
-		double y = getPosition().getY();
+		double x = getX();
+		double y = getY();
 
 		double leftX  = x - width/2;
 		double leftY  = y;
@@ -96,8 +101,8 @@ public abstract class GameObject {
 		double downY  = y - height/2;
 		Point down = new Point(downX, downY);
 
-		double vx = getVelocity().getVelocityX();
-		double vy = getVelocity().getVelocityY();  
+		double vx = getVelocityX();
+		double vy = getVelocityY();  
 
 		if (vx > 0 && o.isInbound(right)) {
 			return right;
@@ -110,8 +115,8 @@ public abstract class GameObject {
 		}
 		return null;
 	}
+	
 	// gets the position of objects.
-
 	public Point getPosition() {
 		return this.position;
 	}
@@ -121,21 +126,42 @@ public abstract class GameObject {
 		this.position = p;
 		view.setBounds((int) (p.getX() - width / 2),
 				(int) (p.getY() - height / 2), (int) width, (int) height);
-		// this.setLocation( p);
+	}
+	public void setPosition( double x, double y){
+		this.setPosition( new Point( x, y));
+	}
+	public void setX( double x){
+		this.setPosition( new Point(x, getY()));
+	}
+	public void setY( double y){
+		this.setPosition( new Point( getX(), y));
+	}
+	public double getX(){
+		return getPosition().getX();
+	}
+	public double getY(){
+		return getPosition().getY();
 	}
 
-	/*
-	 * redraws game object this method is implemented by every gameobject itself
-	 * if it is a ball draws ball, if it is brick draws brick and so on
-	 */
+	public void setVelocity( double vx, double vy){
+		this.setVelocity( new Velocity( vx, vy));
+	}
+	public void setVelocityX( double vx){
+		this.setPosition( new Point(vx, getVelocityY()));
+	}
+	public void setVelocityY( double vy){
+		this.setPosition( new Point( getVelocityX(), vy));
+	}
+	public double getVelocityX(){
+		return getVelocity().getVelocityX();
+	}
+	public double getVelocityY(){
+		return getVelocity().getVelocityY();
+	}
+
 	public void move( double elapsedTime){
-		double x = getPosition().getX();
-		double y = getPosition().getY();
-		double vx = getVelocity().getVelocityX();
-		double vy = getVelocity().getVelocityY();
-		double dx = vx * elapsedTime;
-		double dy = vy * elapsedTime;
-		setPosition( new Point( x + dx, y + dy));
+		setPosition( new Point( getX() + getVelocityX() * elapsedTime, 
+								getY() + getVelocityY() * elapsedTime));
 	}
 	public Velocity getVelocity() {
 		return this.velocity;
