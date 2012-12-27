@@ -85,8 +85,6 @@ public class GameEngine {
 	}
 
 	public Bonus createRandomBonus( Brick brick) {
-		double x = brick.getPosition().getX();
-		double y = brick.getPosition().getY();
 		Bonus bonus;
 		switch ((int) (Math.random() * 14)) {
 		case 0:
@@ -138,16 +136,23 @@ public class GameEngine {
 			p.stopIfCollide( wall);
 		}
 	}
-
 	private void makeBonusCollisions() {
 		for (Bonus bonus : bonuses) {
 			Point collision = bonus.getCollision(pedal);
 			if (collision != null) {
 				bonus.gainBonus(this, pedal, ballManager, highScoreManager);
+				gameView.remove(bonus.getView());
+				gameView.repaint();
+				bonuses.remove( bonus);
+				break;
 			} else if (isMultiplayer) {
 				collision = bonus.getCollision(pedal2);
 				if (collision != null) {
 					bonus.gainBonus(this, pedal2, ballManager, highScoreManager);
+					gameView.remove(bonus.getView());
+					gameView.repaint();
+					bonuses.remove( bonus);
+					break;
 				}
 			}
 		}

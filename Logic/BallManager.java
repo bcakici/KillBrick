@@ -35,16 +35,13 @@ public class BallManager {
 			ball.move( elapsedTime);
 		}
 	}
-	public void increaseBallSpeeds() {
+	public void changeBallSpeeds(double speedMultiplier) {
 		for (Ball b : balls) {
 			Velocity v = b.getVelocity();
-			double x = v.getVelocityX();
-			double y = v.getVelocityY();
+			double vx = v.getVelocityX();
+			double vy = v.getVelocityY();
 
-			x = 2 * x;
-			y = 2 * y;
-
-			b.setVelocity(new Velocity(x, y));
+			b.setVelocity(new Velocity(vx*speedMultiplier, vy*speedMultiplier));
 
 		}
 	}
@@ -56,4 +53,5 @@ public class BallManager {
 		ball.setDefaultVelocity();
 		balls.add( ball);
 	}
+
 }
