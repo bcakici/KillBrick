@@ -17,10 +17,8 @@ public class GameView extends JPanel {
 
 		if (isMultiplayer == true) {
 			gameEngine = new Logic.GameEngine(this, true);
-			startGame();
 		} else {
 			gameEngine = new Logic.GameEngine(this, false);
-			startGame();
 		}
 	}
 
@@ -31,9 +29,5 @@ public class GameView extends JPanel {
 				ViewController.getInstance().EXIT_ON_CLOSE);
 	}
 
-	// stars the game.
-	public void startGame() {
-		gameEngine.createLevel(1);
-	}
 
 }

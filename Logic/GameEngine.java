@@ -26,6 +26,7 @@ import View.ViewController;
 
 public class GameEngine {
 	private int lives = 3;
+	private int level = 0;
 	private ArrayList<Bonus> bonuses;
 	private ArrayList<Brick> bricks;
 	private ArrayList<Wall> walls;
@@ -48,7 +49,6 @@ public class GameEngine {
 		highScoreManager = new HighScoreManager();
 		soundManager = new SoundManager();
 		ballManager = new BallManager();
-		gameLooper = new GameLooper(this);
 		keyboardListener = new KeyboardListener(this);
 		gameView = gv;
 
@@ -58,17 +58,25 @@ public class GameEngine {
 		
 		this.isMultiplayer = isMultiplayer;
 		lives = 3;
-	}
-
-	// it destroy necessary to destroy objects when changing levels
-	public void destroyObjects() {
-		//ballManager.destroyBalls();
 		
+		createNextLevel();
+		runGame();
 	}
 
+
+	private void runGame(){
+		gameLooper = new GameLooper( this);
+		gameLooper.start();
+	}
 	// it is stop the game.
 	public void stopGame() {
 		gameLooper.stop();
+	}
+	private void completeLevel(){
+		stopGame();
+		removeGameObjects();
+		createNextLevel();
+		runGame();
 	}
 
 	// Elapse method calls redrawObject method and calculateCollisions method.
@@ -170,31 +178,48 @@ public class GameEngine {
 			}
 		}
 	}
-	void handleCollision( Brick brick){
+	public void handleCollision( Brick brick){
 		brick.decreaseHealth();
 		if (brick.isExploded()) {
 			bricks.remove(brick);
 			gameView.remove( brick.getView());
 			gameView.repaint();
+			if( bricks.size() == 0){
+				completeLevel();
+			}
 		}
 	}
 
+	private void removeGameObjects() {
+		gameView.removeAll();
+		ballManager.removeBalls();
+		bonuses.clear();
+		walls.clear();
+		bricks.clear();
+	}
 	// Creates levels with creating game objects.
-	public void createLevel(int level) {
+	public void createNextLevel() {
+		level++;
 		addBricks( level);
 		addPedals();
 		addWalls();
 		addStartingBall();
-		gameLooper.start();
+		gameView.repaint();
 	}
 	private void addBricks(int level){
 		if (level == 1) {
-			for( int i = 1; i < 15; i++){
+			for( int i = 1; i < 10; i++){
 				for( int k = 1; k < 4; k++){
 					addBrick( i, k, false);
 				}
 			}
 		} else if (level == 2) {
+			
+			for( int i = 1; i < 10; i++){
+				for( int k = 1; k < 4; k++){
+					addBrick( i, k, true);
+				}
+			}
 
 		} else if (level == 3) {
 

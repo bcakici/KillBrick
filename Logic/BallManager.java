@@ -90,4 +90,9 @@ public class BallManager {
 		return (balls.size() > 0);
 	}
 
+	public void removeBalls(){
+		balls = new ArrayList<Ball>();
+		
+	}
+
 }

@@ -34,7 +34,6 @@ public class GameLooper extends Timer {
 	// this is the game loop which is called during the game every time frame
 	// refreshes
 	public void loop() {
-
 		gameEngine.elapse((System.currentTimeMillis() - lastTime)/20);
 		lastTime = System.currentTimeMillis();
 	}
