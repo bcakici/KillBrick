@@ -120,8 +120,8 @@ public class GameEngine {
 	 * Pedal.
 	 */
 	private void calculateCollisions() {
-		calculateBallCollisions();
-		calculateBonusCollisions();
+		makeBallCollisions();
+		makeBonusCollisions();
 	}
 	public void stopPedalsIfCollide(){
 		stopIfCollideWithWalls(pedal);
@@ -137,7 +137,7 @@ public class GameEngine {
 		}
 	}
 
-	private void calculateBonusCollisions() {
+	private void makeBonusCollisions() {
 		for (Bonus bonus : bonuses) {
 			Point collision = bonus.getCollision(pedal);
 			if (collision != null) {
@@ -150,61 +150,45 @@ public class GameEngine {
 			}
 		}
 	}
-
-	private void calculateBallCollisions() {
+	private void handleCollision( Brick brick){
+		brick.decreaseHealth();
+		if (brick.isExploded()) {
+			bricks.remove(brick);
+			gameView.remove( brick.getView());
+			gameView.repaint();
+		}
+	}
+	private void makeBallCollisions() {
 		ArrayList<Ball> balls = ballManager.getBalls();
 		for (Ball ball : balls) {
-			Point collision;
-
-			collision = ball.getCollision(pedal);
-			if( collision == null){
-				for (Brick brick : bricks) {
-					collision = ball.getCollision(brick);
-					if (collision != null) {
-						brick.decreaseHealth();
-						if (brick.isExploded()) {
-							Bonus b = brick.getBonus();
-							if (b != null) {
-								b.setVisibleAndFalling();
-							}
-						}
-						break;
-					}
+			ball.reflectIfCollision(pedal);
+			for (Brick brick : bricks) {
+				if (ball.reflectIfCollision(brick)) {
+					handleCollision( brick);
+					break;
 				}
 			}
-			if( collision == null){
-				for (Wall wall : walls) {
-					collision = ball.getCollision(wall);
-					if( collision != null){
-						break;
-					}
-				}
+			for (Wall wall : walls) {
+				ball.reflectIfCollision(wall);
 			}
-			if (collision == null && isMultiplayer) {
-				collision = ball.getCollision(pedal2);
-			}
-			if (collision != null) {
-				ball.reflectFrom(collision);
+			if (isMultiplayer) {
+				ball.reflectIfCollision(pedal2);
 			}
 		}
 	}
 
-	// Creates levels with intializing brick objects.
+	// Creates levels with creating game objects.
 	public void createLevel(int level) {
-		//NormalBrick b = new NormalBrick();
-		//gameView.add(new JLabel(b));
-		//StrongBrick s = new StrongBrick();
-		//gameView.add(new JLabel(s));
 		addBricks( level);
 		addPedals();
 		addWalls();
 		ballManager.addBall( 0, 0, gameView);
-		
+		ballManager.attachFirstBallTo( pedal);
 		gameLooper.start();
 	}
 	private void addBricks(int level){
 		if (level == 1) {
-			addBrick(1,1, false);
+			addBrick(1,1, true);
 			addBrick(2,2, false);
 			addBrick(3,3, false);
 			addBrick(4,4, true);

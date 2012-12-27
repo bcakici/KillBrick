@@ -2,7 +2,8 @@ package Data;
 
 //draws the pedal and keeps its length.
 public class Pedal extends GameObject {
-
+	Ball attached;
+	
 	public Pedal(boolean isSecond) {
 		super(isSecond ? "images/pedal2_normal.png" : "images/pedal1_normal.png");
 		// TODO Auto-generated constructor stub
@@ -21,7 +22,22 @@ public class Pedal extends GameObject {
 	}
 
 	// moves the pedal right.
-
+	@Override 
+	public void setPosition(Point p) {
+		super.setPosition(p);
+		if( attached != null){
+			attached.setPosition( new Point( p.getX() - getWidth()/4, p.getY() - attached.getHeight()/2 - height/2));
+		}
+	}
+	public void attach( Ball b){
+		attached = b;
+		attached.stop();
+		setPosition( getPosition());
+	}
+	public void freeBall(){
+		attached.setDefaultVelocity();
+		attached = null;
+	}
 	public void moveRight() {
 		setVelocity( new Velocity( 5, 0));
 	}

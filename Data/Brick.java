@@ -3,37 +3,21 @@ package Data;
 //is an abstract class which keeps the brick types.
 public abstract class Brick extends GameObject {
 
-	// declare x & y coordinates
-	int x, y;
-
-	private int health;
+	protected int health;
 	private Bonus bonus;
 
-	// declare boolean to determine if brick has been hit
-	boolean exploded;
-
 	// constructor takes image
-	public Brick(String imagefile) {
+	public Brick(String imagefile, int health) {
 		super(imagefile);
+		this.health = health;
 	}
-	public Brick(String imagefile, double x, double y) {
+	public Brick(String imagefile, double x, double y, int health) {
 		super(imagefile, x, y);
-	}
-
-	// set if the brick is hit or not
-	public void setExploded(boolean exploded) {
-		this.exploded = exploded;
+		this.health = health;
 	}
 
 	public void setBonus(Bonus bonus) {
 		this.bonus = bonus;
-	}
-
-	public boolean hasBonusAndExploded() {
-		if (isExploded() && this.bonus != null) {
-			return true;
-		}
-		return false;
 	}
 
 	// checks if brick is broken or not.
@@ -43,10 +27,8 @@ public abstract class Brick extends GameObject {
 
 	public void decreaseHealth() {
 		health--;
-	}
-
-	// this brick holds bonus sometimes.
-	public Bonus getBonus() {
-		return bonus;
+		if (bonus != null) {
+			bonus.setVisibleAndFalling();
+		}
 	}
 }

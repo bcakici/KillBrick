@@ -21,7 +21,7 @@ public class BallManager {
 	// pedal
 	public void attachFirstBallTo(Pedal p) {
 		Ball firstBall = balls.get(0);
-		firstBall.attachTo(p);
+		p.attach(firstBall);
 	}
 
 	// returns all balls that are active
@@ -35,14 +35,6 @@ public class BallManager {
 			ball.move( elapsedTime);
 		}
 	}
-
-	// unattach the first ball form pedal, and start moving it
-	public void unattachFirstBall() {
-
-		Ball firstBall = balls.get(0);
-		firstBall.free();
-	}
-
 	public void increaseSpeed() {
 		for (Ball b : balls) {
 			Velocity v = b.getVelocity();
@@ -61,7 +53,7 @@ public class BallManager {
 		Ball ball = new Ball();
 		gv.add( ball.getView());
 		ball.setPosition( new Point( x, y));
-		ball.setVelocity( new Velocity(3,3));
+		ball.setDefaultVelocity();
 		balls.add( ball);
 	}
 }

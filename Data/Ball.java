@@ -3,13 +3,17 @@ package Data;
 //this class corresponds to ball in game
 public class Ball extends GameObject {
 
+	
 	public Ball() {
 		super("images/ball.png");
 		// TODO Auto-generated constructor stub
 	}
+	public void setDefaultVelocity(){
+		setVelocity( new Velocity(3,3));
+	}
 
 	// calculate the reflect ball form
-	public void reflectFrom(Point collision) {
+	private void reflectFrom(Point collision) {
 
 		Point firstPosition = getPosition();
 		double x1 = firstPosition.getX();
@@ -28,19 +32,14 @@ public class Ball extends GameObject {
 		setVelocity(new Velocity(vx2, vy2));
 	}
 
-	// free the ball from pedal.
-	public void free() {
-	}
 
-	// attach to ball to pedal.
-	public void attachTo(Pedal p) {
-	}
-
-	/*
-	 * redraws game object this method is implemented by every gameobject itself
-	 * if it is a ball draws ball, if it is brick draws brick and so on
-	 */
-	public void redraw() {
+	public boolean reflectIfCollision( GameObject o){
+		Point collision = getCollision(o);
+		if( collision != null){
+			reflectFrom( collision);
+			return true;
+		}
+		return false;
 	}
 
 }

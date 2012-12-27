@@ -28,6 +28,9 @@ public class KeyboardListener extends KeyAdapter {
 		else if (pressed == KeyEvent.VK_D) {
 			gameEngine.getPedal2().moveRight();
 		}
+		else if (pressed == KeyEvent.VK_SPACE) {
+			gameEngine.getPedal1().freeBall();
+		}
 		gameEngine.stopPedalsIfCollide();
 	}
 
