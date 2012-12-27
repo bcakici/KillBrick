@@ -8,4 +8,8 @@ public class StrongBrick extends Brick {
 		super("images/brick_strong.png", x, y);
 		// TODO Auto-generated constructor stub
 	}
+	public StrongBrick( ) {
+		super("images/brick_strong.png");
+		// TODO Auto-generated constructor stub
+	}
 }

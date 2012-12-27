@@ -118,12 +118,6 @@ public class GameEngine {
 		}
 		return bonus;
 	}
-
-	// it takes the id of the pedal and direction of the pedal
-	// as a parameter and enables to move the pedal.
-	public void movePedal(int pedalsNumber, boolean direction) {
-	}
-
 	/*
 	 * calculates the type of collision and according to result calls other
 	 * methods if necessary. There are four collision types that should be
@@ -134,7 +128,7 @@ public class GameEngine {
 		calculateBallCollisions();
 		calculateBonusCollisions();
 	}
-	private void stopPedalsIfCollide(){
+	public void stopPedalsIfCollide(){
 		stopIfCollideWithWalls(pedal);
 		if( isMultiplayer){
 			pedal.stopIfCollide( pedal2);
@@ -201,15 +195,28 @@ public class GameEngine {
 	}
 
 	// Creates levels with intializing brick objects.
-	public void createLevel(int no) {
+	public void createLevel(int level) {
 		//NormalBrick b = new NormalBrick();
 		//gameView.add(new JLabel(b));
 		//StrongBrick s = new StrongBrick();
 		//gameView.add(new JLabel(s));
-		ballManager.addBall( 0, 0, gameView);
-		
+		addBricks( level);
 		addPedals();
 		addWalls();
+		ballManager.addBall( 0, 0, gameView);
+	}
+	private void addBricks(int level){
+		if (level == 1) {
+			addBrick(1,1, false);
+			addBrick(2,2, false);
+			addBrick(3,3, false);
+			addBrick(4,4, true);
+		} else if (level == 2) {
+
+		} else if (level == 3) {
+
+		}
+
 	}
 	private void addPedals(){
 		pedal = new Pedal();
@@ -229,17 +236,20 @@ public class GameEngine {
 		walls.add( top);
 		walls.add( right);
 	}
-	private Brick addBrick( double x, double y, boolean isStrong){
-		if( isStrong){
-			StrongBrick brick = new StrongBrick( x, y);
-			gameView.add( brick.getView());
-			bricks.add( brick);
+	private Brick addBrick( double row, double column, boolean isStrong){
+		if (isStrong) {
+			StrongBrick brick = new StrongBrick();
+			brick.setPosition(new Point((row - 1 / 2) * brick.getWidth(),
+					(column - 1 / 2) * brick.getHeight()));
+			gameView.add(brick.getView());
+			bricks.add(brick);
 			return brick;
-		}
-		else{
-			NormalBrick brick = new NormalBrick( x, y);
-			gameView.add( brick.getView());
-			bricks.add( brick);
+		} else {
+			NormalBrick brick = new NormalBrick();
+			brick.setPosition(new Point((row - 1 / 2) * brick.getWidth(),
+					(column - 1 / 2) * brick.getHeight()));
+			gameView.add(brick.getView());
+			bricks.add(brick);
 			return brick;
 		}
 	}

@@ -22,6 +22,7 @@ public class KeyboardListener extends KeyAdapter {
 		else if (pressed == KeyEvent.VK_RIGHT) {
 			gameEngine.getPedal1().moveRight();
 		}
+		gameEngine.stopPedalsIfCollide();
 	}
 
 	@Override

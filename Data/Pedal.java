@@ -30,18 +30,11 @@ public class Pedal extends GameObject {
 		if( collision != null){
 			Point position = getPosition();
 			double x = position.getX();
-			double y = position.getY();
 			Velocity velocity = getVelocity();
 			double vx = velocity.getVelocityX();
-			double vy = velocity.getVelocityY();
-			
-			if (vx > 0 && x - collision.getX() == width/2) {
+			if (vx < 0 && (x - collision.getX() == width/2)) {
 				stop();
-			} else if (vx < 0 && collision.getX() - x == width/2) {
-				stop();
-			} else if (vy > 0 && y - collision.getY() == height/2) {
-				stop();
-			} else if (vy < 0 && collision.getY() - y == height/2) {
+			} else if (vx > 0 && (collision.getX() - x == width/2)) {
 				stop();
 			} 
 		}
