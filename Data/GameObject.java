@@ -64,7 +64,7 @@ public abstract class GameObject {
 	// sets and updates the position of objects
 	public void setPosition(Point p) {
 		this.position = p;
-		view.setBounds((int)p.getX(), (int)p.getY(), width, height);
+		view.setBounds((int)p.getX()-width/2, (int)p.getY()-height/2, width, height);
 		// this.setLocation( p);
 	}
 
