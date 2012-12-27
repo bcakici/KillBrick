@@ -2,8 +2,12 @@ package Logic;
 
 import java.util.ArrayList;
 
+import View.GameView;
+import View.ViewController;
+
 import Data.Ball;
 import Data.Pedal;
+import Data.Point;
 import Data.Velocity;
 
 /* it controls ball objects GameEngine*/
@@ -51,5 +55,13 @@ public class BallManager {
 			b.setVelocity(new Velocity(x, y));
 
 		}
+	}
+	
+	public void addBall(double x, double y, GameView gv){
+		Ball ball = new Ball();
+		gv.add( ball.getView());
+		ball.setPosition( new Point( x, y));
+		ball.setVelocity( new Velocity(1,1));
+		balls.add( ball);
 	}
 }

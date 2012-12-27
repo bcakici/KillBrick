@@ -57,17 +57,65 @@ public abstract class GameObject {
 		this.width = width;
 	}
 
+	public boolean isInbound( Point p)
+	{
+		double x1 = getPosition().getX();
+		double y1 = getPosition().getY();      
+
+		double x2 = p.getX();
+		double y2 = p.getY();
+
+		if( (x1 + width/2) >= x2 &&  x2 >= (x1 - width/2) 
+				&& (y1 + height/2) >= y2 &&  y2 >= (y1 - height/2) ){
+			return true;
+		}
+		
+		return false;
+	}
 	// returns the point the object collides with other object, returns null if
 	// not
 
 	public Point getCollision(GameObject o) {
-		if (this.position.getX() == o.position.getX()
-				&& this.position.getY() == o.position.getY()) {
-			return this.position;
+		double x = getPosition().getX();
+		double y = getPosition().getY();
+
+		double leftX  = x - width/2;
+		double leftY  = y;
+		Point left = new Point(leftX, leftY); 
+
+		double rightX = x + width/2;
+		double rightY = y;
+		Point right = new Point(rightX, rightY);  
+
+		double topX   = x;
+		double topY   = y + height/2;
+		Point top = new Point(topX, topY);
+
+		double downX  = x;
+		double downY  = y - height/2;
+		Point down = new Point(downX, downY);
+
+		double vx = getVelocity().getVelocityX();
+		double vy = getVelocity().getVelocityY();  
+
+		if( vx > 0 && isInbound(right)) 
+		{
+			return right;
+		}
+		else if( vx < 0 && isInbound(left))  
+		{
+			return left;
+		}
+		else if( vy > 0 && isInbound(top)) 
+		{
+			return top;
+		}
+		else if( vy < 0 && isInbound(down)) 
+		{
+			return down;
 		}
 		return null;
 	}
-
 	// gets the position of objects.
 
 	public Point getPosition() {

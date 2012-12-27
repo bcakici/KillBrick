@@ -191,9 +191,7 @@ public class GameEngine {
 		//gameView.add(new JLabel(s));
 		pedal = new Pedal();
 		gameView.add(pedal.getView());
-		Ball ball = new Ball();
-		gameView.add( ball.getView());
-		ball.setPosition( new Point( 400, 400));
+		ballManager.addBall( 0, 0, gameView);
 		pedal.setPosition( new Point( 200, 200));
 	}
 
