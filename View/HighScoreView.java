@@ -1,7 +1,6 @@
 package View;
 
 import Logic.HighScoreManager;
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 

@@ -4,9 +4,6 @@
 * of it */
 package View;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,11 +21,6 @@ public class ViewController extends javax.swing.JFrame{
     private AboutUsView aboutUsView;
     private MainMenu mainMenu;
     private static ViewController viewController;
-    private JOptionPane showEnterNamePanel;
-    
-    /**
-     * Creates new form ViewController
-     */
     
 	// creates view objects
 	// gets the instance of viewcontroller if there is no instance create new viewcontroller

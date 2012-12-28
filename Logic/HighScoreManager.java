@@ -1,6 +1,5 @@
 package Logic;
 import Data.HighScoreList;
-import java.io.IOException;
 /*manages highscore list object, holds current highscore of game 
  at the end of the game if the user was able to get
  a score which is in top ten it saves users name and score into highscorelist*/

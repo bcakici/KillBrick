@@ -2,16 +2,10 @@ package Logic;
 
 import java.util.ArrayList;
 
-import Data.BallBonus;
-import Data.Bonus;
 import Data.Brick;
-import Data.LifeBonus;
 import Data.NormalBrick;
 import Data.Pedal;
-import Data.PedalLengthBonus;
 import Data.Point;
-import Data.ScoreBonus;
-import Data.SpeedBonus;
 import Data.StrongBrick;
 import Data.Wall;
 import View.GameView;
@@ -25,7 +19,7 @@ public class GameEngine {
 	private int level = 0;
 	private ArrayList<Brick> bricks;
 	private ArrayList<Wall> walls;
-	private Pedal pedal;
+	private Pedal pedal1;
 	private Pedal pedal2;
 	private HighScoreManager highScoreManager;
 	private SoundManager soundManager;
@@ -51,39 +45,34 @@ public class GameEngine {
 		
 		soundManager = new SoundManager();
 		bonusManager = new BonusManager();
-		keyboardListener = new KeyboardListener(this);
-
-		gameView.addKeyListener(keyboardListener);
-		gameView.setFocusable(true);
-		gameView.requestFocusInWindow();
 		
 		this.isMultiplayer = isMultiplayer;
 		lives = 3;
+		gameView.setLivesText( lives);
 		
 		createNextLevel();
-		runLooper();
+		
+		gameLooper = new GameLooper( this);
+		gameLooper.start();
+
+		keyboardListener = new KeyboardListener(pedal1, pedal2, this);
+		gameView.addKeyListener(keyboardListener);
+		gameView.setFocusable(true);
+		gameView.requestFocusInWindow();
 		
 		if( !isMute){
 			soundManager.startBackgroundMusic();
 		}
 	}
 
-	private void runLooper(){
-		gameLooper = new GameLooper( this);
-		gameLooper.start();
-	}
-	// it is stop the game.
-	public void stopLooper() {
-		gameLooper.stop();
-	}
 	private void completeLevel(){
 		if( level < MAX_LEVEL){
-			stopLooper();
 			removeGameObjects();
 			createNextLevel();
-			runLooper();
+			gameView.requestFocusInWindow();
 		} else{
 			gameView.closeAndShowHighScores();
+			gameLooper.stop();
 		}
 	}
 
@@ -91,11 +80,12 @@ public class GameEngine {
 	public void elapse(double time) {
 		moveObjects( time);
 		ballManager.handleFalls( gameView);
+		bonusManager.handleFalls( gameView);
 		if( !ballManager.hasBalls()){
 			decreaseLives();
 		}
 		else if( bricks.size() == 0){
-				completeLevel();
+			completeLevel();
 		}
 		else{
 			makeCollisions();
@@ -105,15 +95,12 @@ public class GameEngine {
 		ballManager.moveBalls( elapsedTime);
 		bonusManager.moveBonuses( elapsedTime);
 		stopPedalsIfCollide();
-		pedal.move( elapsedTime);
+		pedal1.move( elapsedTime);
 		if( isMultiplayer){
 			pedal2.move( elapsedTime);
 		}
 	}
 
-	public void addBalls( int count){
-		ballManager.addBalls(count, gameView);
-	}
 	/*
 	 * calculates the type of collision and according to result calls other
 	 * methods if necessary. There are four collision types that should be
@@ -121,17 +108,17 @@ public class GameEngine {
 	 * Pedal.
 	 */
 	private void makeCollisions() {
-		ballManager.makeBallCollisions(this, bricks, walls, getPedal1(), getPedal2());
-		bonusManager.makeBonusCollisionsWith(pedal, gameLogic);
+		ballManager.makeBallCollisions(this, bricks, walls, pedal1, pedal2);
+		bonusManager.makeBonusCollisionsWith(pedal1, gameLogic);
 		if (isMultiplayer) {
 			bonusManager.makeBonusCollisionsWith(pedal2, gameLogic);
 		}
 	}
 	public void stopPedalsIfCollide(){
-		stopIfCollideWithWalls(pedal);
+		stopIfCollideWithWalls(pedal1);
 		if( isMultiplayer){
-			pedal.stopIfCollide( pedal2);
-			pedal2.stopIfCollide( pedal);
+			pedal1.stopIfCollide( pedal2);
+			pedal2.stopIfCollide( pedal1);
 			stopIfCollideWithWalls(pedal2);
 		}
 	}
@@ -143,9 +130,11 @@ public class GameEngine {
 	public void handleCollision( Brick brick){
 		brick.decreaseHealth();
 		if (brick.isExploded()) {
+			highScoreManager.addScoreToCurrentGame( brick.getScore());
 			bricks.remove(brick);
 			gameView.remove( brick.getView());
 			gameView.repaint();
+			gameView.setScoreText( highScoreManager.getLastScore());
 		}
 	}
 
@@ -191,13 +180,17 @@ public class GameEngine {
 
 	}
 	private void addPedals(){
-		pedal = new Pedal( false);
-		gameView.add( pedal);
-		pedal.setPosition( new Point( 200, 500));
+		if( pedal1 == null){
+			pedal1 = new Pedal( false);
+		}
+		gameView.add( pedal1);
+		pedal1.setPosition( new Point( 600, 500));
 		if( isMultiplayer){
-			pedal2 = new Pedal( true);
+			if( pedal2 == null){
+				pedal2 = new Pedal( true);
+			}
 			gameView.add( pedal2);
-			pedal2.setPosition( new Point( 600, 500));
+			pedal2.setPosition( new Point( 200, 500));
 		}
 	}
 	private void addWalls(){
@@ -216,7 +209,7 @@ public class GameEngine {
 			brick = new NormalBrick();
 		}
 		brick.setPosition(new Point((column + 0.5) * brick.getWidth(),
-				(row + 0.5) * brick.getHeight()));
+				(row + 1.5) * brick.getHeight()));
 		gameView.add(brick);
 		bricks.add(brick);
 		bonusManager.createRandomBonus( brick, gameView);
@@ -224,29 +217,18 @@ public class GameEngine {
 	}
 	public void increaseLives() {
 		lives++;
-	}
-
-	public Pedal getPedal1() {
-		return pedal;
-	}
-
-	public Pedal getPedal2() {
-		if (isMultiplayer) {
-			return pedal2;
-		} else {
-			return null;
-		}
+		gameView.setLivesText( lives);
 	}
 	private void addStartingBall(){
-		pedal.attach( ballManager.addBall( gameView));
+		pedal1.attach( ballManager.addBall( gameView));
 	}
 	public void decreaseLives() {
 		bonusManager.removeFallingBonuses( gameView);
 		if (lives == 0) {
-			stopLooper();
 			gameView.closeAndShowHighScores();
 		} else {
 			lives--;
+			gameView.setLivesText( lives);
 			addStartingBall();
 		}
 	}

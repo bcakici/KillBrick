@@ -5,7 +5,6 @@ public abstract class Brick extends GameObject {
 
 	protected int health;
 	private Bonus bonus;
-
 	// constructor takes image
 	public Brick(String imagefile, int health) {
 		super(imagefile);
@@ -15,7 +14,6 @@ public abstract class Brick extends GameObject {
 		super(imagefile, x, y);
 		this.health = health;
 	}
-
 	public void setBonus(Bonus bonus) {
 		this.bonus = bonus;
 		bonus.setPosition( getPosition());

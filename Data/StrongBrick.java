@@ -5,9 +5,11 @@ public class StrongBrick extends Brick {
 	
 	public StrongBrick( double x, double y) {
 		super("images/brick_strong.png", x, y, 2);
+		setScore( 250);
 	}
 	public StrongBrick( ) {
 		super("images/brick_strong.png", 2);
+		setScore( 250);
 	}
 	@Override
 	public void decreaseHealth() {

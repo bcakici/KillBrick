@@ -16,6 +16,7 @@ public abstract class GameObject {
 	protected JLabel view;
 	protected double height;
 	protected double width;
+	private int score;
 	public GameObject(String imageFile) {
 		setView( imageFile);
 		setPosition( 0, 0);
@@ -24,6 +25,13 @@ public abstract class GameObject {
 	public GameObject(String imageFile, double x, double y) {
 		this( imageFile);
 		setPosition( x, y);
+	}
+
+	protected void setScore( int score){
+		this.score = score;
+	}
+	public int getScore() {
+		return score;
 	}
 	protected void setView(String imageFile){
 		ImageIcon image = null;

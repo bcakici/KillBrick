@@ -2,13 +2,17 @@ package Logic;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import Data.Pedal;
 
 /* listens keyboard inputs and returns last keyboard input */
 public class KeyboardListener extends KeyAdapter {
+	private Pedal pedal1, pedal2;
 	private GameEngine gameEngine;
 
-	public KeyboardListener(GameEngine e) {
-		this.gameEngine = e;
+	public KeyboardListener(Pedal p1, Pedal p2, GameEngine e) {
+		pedal1 = p1;
+		pedal2 = p2;
+		gameEngine = e;
 	}
 
 	@Override
@@ -16,19 +20,19 @@ public class KeyboardListener extends KeyAdapter {
 		// TODO Auto-generated method stub
 		int pressed = e.getKeyCode();
 		if (pressed == KeyEvent.VK_LEFT) {
-			gameEngine.getPedal1().moveLeft();
+			pedal1.moveLeft();
 		}
 		else if (pressed == KeyEvent.VK_RIGHT) {
-			gameEngine.getPedal1().moveRight();
+			pedal1.moveRight();
 		}
 		else if (pressed == KeyEvent.VK_A) {
-			gameEngine.getPedal2().moveLeft();
+			pedal2.moveLeft();
 		}
 		else if (pressed == KeyEvent.VK_D) {
-			gameEngine.getPedal2().moveRight();
+			pedal2.moveRight();
 		}
 		else if (pressed == KeyEvent.VK_SPACE) {
-			gameEngine.getPedal1().freeBall();
+			pedal1.freeBall();
 		}
 		gameEngine.stopPedalsIfCollide();
 	}
@@ -38,16 +42,16 @@ public class KeyboardListener extends KeyAdapter {
 		// TODO Auto-generated method stub
 		int pressed = e.getKeyCode();
 		if (pressed == KeyEvent.VK_LEFT) {
-			gameEngine.getPedal1().stop();
+			pedal1.stop();
 		}
 		else if (pressed == KeyEvent.VK_RIGHT) {
-			gameEngine.getPedal1().stop();
+			pedal1.stop();
 		}
 		else if (pressed == KeyEvent.VK_A) {
-			gameEngine.getPedal2().stop();
+			pedal2.stop();
 		}
 		else if (pressed == KeyEvent.VK_D) {
-			gameEngine.getPedal2().stop();
+			pedal2.stop();
 		}
 
 	}

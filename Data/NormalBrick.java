@@ -5,9 +5,11 @@ public class NormalBrick extends Brick {
 
 	public NormalBrick() {
 		super("images/brick_normal.png", 1);
+		setScore( 100);
 	}
 	public NormalBrick( double x, double y) {
 		super("images/brick_normal.png", x, y, 1);
+		setScore( 100);
 	}
 
 }

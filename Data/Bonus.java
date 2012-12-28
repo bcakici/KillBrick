@@ -7,10 +7,12 @@ public abstract class Bonus extends GameObject {
 
 	public Bonus(String imageFile) {
 		super(imageFile);
+		setScore( 150);
 		getView().setVisible( false);
 	}
 	public Bonus(String imageFile, double x, double y) {
 		super(imageFile, x, y);
+		setScore( 150);
 		getView().setVisible( false);
 	}
 
