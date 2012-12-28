@@ -16,11 +16,20 @@ public class MainMenu extends javax.swing.JPanel {
         initComponents();
     }
     
-    public void startGame(boolean isMultiplayer) {
+    public void startGame(boolean isMultiplayer) {    
+        boolean soundOn;
+        //Getting the sound property
+        if(jButton4.getText().equals("SOUND OFF")) {
+            soundOn = false;
+        }
+        else{
+            soundOn = true;
+        }
+        
     	if( isMultiplayer){
-    		ViewController.getInstance().startMultiplayerGame(false);
+    		ViewController.getInstance().startMultiplayerGame(soundOn);
     	} else{
-    		ViewController.getInstance().startSingleplayerGame(false);
+    		ViewController.getInstance().startSingleplayerGame(soundOn);
     	}
     }
     
@@ -54,6 +63,13 @@ public class MainMenu extends javax.swing.JPanel {
         });
   
         jButton2.setText("START MULTIPLAYER");
+        
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jButton3.setText("VIEW HIGH SCORES");
         
@@ -115,6 +131,22 @@ public class MainMenu extends javax.swing.JPanel {
         );
     }// </editor-fold>
 
+    //It opens the singleplayer game
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {
+        startGame(false);
+    }
+    
+    // It opens the multiplayer game
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {
+        startGame(true);
+    }
+    
+    // It opens the high score view
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {
+        ViewController.getInstance().showHighScoreView();
+    }
+    
+    // About sound property
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {                                      
         if(jButton4.getText().equals("SOUND OFF")) {
             jButton4.setText("SOUND ON");
@@ -122,15 +154,7 @@ public class MainMenu extends javax.swing.JPanel {
         else{
             jButton4.setText("SOUND OFF");
         }
-    }                                     
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {
-        startGame(true);
-    }
-    
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {
-        ViewController.getInstance().showHighScoreView();
-    }
+    }      
     
     // Variables declaration - do not modify
     private javax.swing.JButton jButton1;
