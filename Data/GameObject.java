@@ -80,38 +80,26 @@ public abstract class GameObject {
 	}
 	// returns the point the object collides with other object, returns null if
 	// not
-
 	public Point getCollision(GameObject o) {
 		double x = getX();
 		double y = getY();
 
-		double leftX  = x - width/2;
-		double leftY  = y;
-		Point left = new Point(leftX, leftY); 
-
-		double rightX = x + width/2;
-		double rightY = y;
-		Point right = new Point(rightX, rightY);  
-
-		double topX   = x;
-		double topY   = y + height/2;
-		Point top = new Point(topX, topY);
-
-		double downX  = x;
-		double downY  = y - height/2;
-		Point down = new Point(downX, downY);
+		Point bottomLeft = new Point(x - width / 2, y + height / 2);
+		Point bottomRight = new Point(x + width / 2, y + height / 2);
+		Point topLeft = new Point(x - width / 2, y - height / 2);
+		Point topRight = new Point(x + width / 2, y - height / 2);
 
 		double vx = getVelocityX();
-		double vy = getVelocityY();  
+		double vy = getVelocityY();
 
-		if (vx > 0 && o.isInbound(right)) {
-			return right;
-		} else if (vx < 0 && o.isInbound(left)) {
-			return left;
-		} else if (vy > 0 && o.isInbound(top)) {
-			return top;
-		} else if (vy < 0 && o.isInbound(down)) {
-			return down;
+		if ((vx < 0 || vy > 0) && o.isInbound(bottomLeft)) {
+			return bottomLeft;
+		} else if ((vx > 0 || vy > 0) && o.isInbound(bottomRight)) {
+			return bottomRight;
+		} else if ((vx < 0 || vy < 0) && o.isInbound(topLeft)) {
+			return topLeft;
+		} else if ((vx > 0 || vy < 0) && o.isInbound(topRight)) {
+			return topRight;
 		}
 		return null;
 	}

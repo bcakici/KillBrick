@@ -32,8 +32,10 @@ public class Pedal extends GameObject {
 		setPosition( getPosition());
 	}
 	public void freeBall(){
-		attached.setDefaultVelocity();
-		attached = null;
+		if( attached != null){
+			attached.setDefaultVelocity();
+			attached = null;
+		}
 	}
 	public void stopIfCollide( GameObject o){
 		Point collision = getCollision(o);

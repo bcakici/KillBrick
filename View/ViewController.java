@@ -46,11 +46,7 @@ public class ViewController extends javax.swing.JFrame{
         gameView = new GameView();
         this.add(gameView);
         
-        try {
-            highScoreView = new HighScoreView();
-        } catch (IOException ex) {
-            Logger.getLogger(ViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        highScoreView = new HighScoreView();
         this.add(highScoreView);
         
         helpView = new HelpView();
@@ -124,6 +120,7 @@ public class ViewController extends javax.swing.JFrame{
         do{
             playerName = JOptionPane.showInputDialog("Enter your name : ");
         }while (playerName == null);
+        highScoreView.submitLastScore( playerName);
     }
 
     // get the name from label.

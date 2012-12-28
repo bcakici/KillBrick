@@ -36,11 +36,9 @@ public class SpeedBonus extends Bonus {
 	// every bonuses implement this method differently, each bonus call it
 	// related methods.
 	@Override
-	public void gainBonus(GameEngine e, Pedal p, final BallManager b,
-			HighScoreManager h) {
-		ballManager = b;
+	public void gainBonus(GameLogic gl, Pedal p) {
 		if (secondsLeft == 0) {
-			ballManager.changeBallSpeeds(speedMultiplier);
+			gl.changeBallSpeeds(speedMultiplier);
 			timer.schedule(task, 1000, 1000);
 		}
 		secondsLeft += 5;

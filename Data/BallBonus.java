@@ -16,9 +16,8 @@ public class BallBonus extends Bonus {
 
 
 	@Override
-	public void gainBonus(GameEngine e, Pedal p, BallManager b,
-			HighScoreManager h) {
-		e.addBalls( ballsToBeAdded);
+	public void gainBonus(GameLogic gl, Pedal p) {
+		gl.addBalls( ballsToBeAdded);
 
 	}
 

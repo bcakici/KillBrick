@@ -3,30 +3,33 @@ package View;
 
 import javax.swing.JPanel;
 
+import Data.GameObject;
+import Logic.GameLogic;
+
 public class GameView extends JPanel {
 	// keeps the option of single or multi player game.
 	// creates GameEngine object
+
+	Logic.GameLogic gameLogic;
+	
 	public GameView() {
-		setLayout(null);
+		setLayout( null);
+		gameLogic = new GameLogic();
 	}
 
-	Logic.GameEngine gameEngine;
-
-	public void createGameEngine(boolean isMultiplayer, boolean sound) {
-
-		if (isMultiplayer == true) {
-			gameEngine = new Logic.GameEngine(this, true);
-		} else {
-			gameEngine = new Logic.GameEngine(this, false);
-		}
+	public void add( GameObject o){
+		add( o.getView());
+	}
+	public void remove( GameObject o){
+		remove( o.getView());
 	}
 
-	// exits game.
-	public void exitGame() {
-		ViewController.getInstance().hideAllPanels();
-		ViewController.getInstance().setDefaultCloseOperation(
-				ViewController.getInstance().EXIT_ON_CLOSE);
+	public void createGameEngine(boolean isMultiplayer, boolean isMute) {
+		gameLogic.createGameEngine( this, isMultiplayer, isMute);
 	}
 
-
+	public void closeAndShowHighScores() {
+		ViewController.getInstance().showEnterNamePanel();
+		ViewController.getInstance().showHighScoreView();
+	}
 }

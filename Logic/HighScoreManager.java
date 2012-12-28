@@ -7,8 +7,9 @@ import java.io.IOException;
 public class HighScoreManager {
     private int currentGameScore;
     private HighScoreList highScoreList;
+    private static HighScoreManager instance;
 
-    public HighScoreManager() {
+    private HighScoreManager() {
         highScoreList = new HighScoreList();
     }
 
@@ -28,19 +29,21 @@ public class HighScoreManager {
     }
 
     // submits player's name with his score
-    public void submitLastScore(String name) throws IOException {
-        HighScoreList tempList = highScoreList;
+    public void submitLastScore(String name){
         //If the player's score lower than 10.th point, there will be no submit.
-        if (tempList.getHighScorePoints().size() == 10 && tempList.getHighScorePoints().get(0) > getLastScore() ) {
-            return;
-        } 
-        else {
-            for(int i = 0; i < tempList.getHighScorePoints().size() ; i++) {
-                if(tempList.getHighScorePoints().get(i) < getLastScore()) {
-                    tempList.addScore(getLastScore(), name, i);
-                    return;
+    	boolean written = false;
+        if (highScoreList.getHighScorePoints().size() < 10 || 
+        	highScoreList.getHighScorePoints().get(10) < getLastScore() ) {
+            for(int i = 0; i < highScoreList.getHighScorePoints().size() ; i++) {
+                if(highScoreList.getHighScorePoints().get(i) < getLastScore()) {
+                    highScoreList.addScore(getLastScore(), name, i);
+                    written = true;
+                    break;
                 }
-            }       
+            }    
+            if(!written){
+            	highScoreList.addScore( getLastScore(), name, highScoreList.getHighScorePoints().size());
+            }
         }   
     }
 
@@ -48,4 +51,11 @@ public class HighScoreManager {
     public void startNewScore() {
         currentGameScore = 0;
     }
+
+	public static HighScoreManager getInstance() {
+		if( instance == null){
+			instance = new HighScoreManager();
+		}
+		return instance;
+	}
 }

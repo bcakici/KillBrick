@@ -22,32 +22,27 @@ public class HighScoreView extends javax.swing.JPanel {
     /**
      * Creates new form HighScoreView
      */
-    public HighScoreView() throws IOException {
-        manager = new HighScoreManager();
-        //manager.submitLastScore("ayse");       
-        //updateScores();
-        list = new Data.HighScoreList();
-        labelList = new ArrayList<JLabel>();
-           
-        initComponents();
-        loadLabels();
-        writeScores();      
+    public HighScoreView(){
+        manager = HighScoreManager.getInstance(); 
+        initComponents();   
+        addLabelsToList();
+        updateScores();    
     }
     
     // it takes highscores from highscore manager and refreshes itself.
     public void updateScores() {
-        manager = new HighScoreManager();
-        manager.getHighScoreList();
+        list = manager.getHighScoreList();
+        writeScoresToLabels(); 
     }
     
     // it submit the current game's Score.
     public void submitLastScore(String name) {
-        
+       manager.submitLastScore(name);
+       updateScores();
     }
     
     //This method writes the high scores and their owners to on labels
-    private void writeScores() throws IOException{
-        list =  manager.getHighScoreList();
+    private void writeScoresToLabels(){
         int i = 0;
         int t = list.getHighScoreNames().size();
         while(i != t){
@@ -57,11 +52,12 @@ public class HighScoreView extends javax.swing.JPanel {
             labelStr = labelStr.substring(0, 3);
             labelStr = labelStr + name + " - " + score;
             labelList.get(i).setText(labelStr);
-            i ++;
+            i++;
         }
     }
     
-    private void loadLabels(){
+    private void addLabelsToList(){
+        labelList = new ArrayList<JLabel>();
         labelList.add(firstLabel);
         labelList.add(secondLabel);
         labelList.add(thirdLabel);

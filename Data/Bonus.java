@@ -28,7 +28,6 @@ public abstract class Bonus extends GameObject {
 
 	// every bonuses implement this method differently, each bonus call it
 	// related methods.
-	public abstract void gainBonus(GameEngine e, Pedal p, BallManager b,
-			HighScoreManager h);
+	public abstract void gainBonus(GameLogic gl, Pedal p);
 
 }

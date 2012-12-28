@@ -46,7 +46,7 @@ public class BallManager {
 	}
 	public Ball addBall(GameView gv){
 		Ball ball = new Ball();
-		gv.add( ball.getView());
+		gv.add( ball);
 		balls.add( ball);
 		return ball;
 	}
@@ -77,7 +77,7 @@ public class BallManager {
 	public void handleFalls(GameView gv) {
 		for( Ball ball : balls){
 			if( ball.getPosition().getY()>620){
-				gv.remove( ball.getView());
+				gv.remove( ball);
 				balls.remove(ball);
 				break;
 			}
